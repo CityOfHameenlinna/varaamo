@@ -83,7 +83,7 @@ class TimeSlot extends PureComponent {
     } = this.props;
     const isPast = new Date(slot.end) < new Date();
     const disabled =
-      !isLoggedIn ||
+      (!isLoggedIn && resource.authentication !== 'unauthenticated') ||
       (!isSelectable && !selected) ||
       !resource.userPermissions.canMakeReservations ||
       (!slot.editing && (slot.reserved || isPast));
