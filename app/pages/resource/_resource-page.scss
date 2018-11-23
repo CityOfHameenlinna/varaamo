@@ -5,7 +5,7 @@ $resource-page-width: 700px;
 $margin-between-items: 10px;
 $content-padding: 10px;
 
-
+@import './reservation-long-calendar/reservation-long-calendar';
 @import './reservation-calendar/reservation-calendar';
 @import './reservation-calendar/time-slots/time-slots';
 @import './resource-header/resource-header';
@@ -131,6 +131,11 @@ $content-padding: 10px;
     .panel-body {
       padding: 0;
     }
+  }
+
+  .app-ResourcePage__bigCalendar {
+    height: auto;
+    margin-bottom: 15px;
   }
 
   @media (max-width: $resource-page-width) {

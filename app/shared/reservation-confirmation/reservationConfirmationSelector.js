@@ -22,6 +22,7 @@ const selectedReservationsSelector = createSelector(
   selectedReservationsFromStateSelector,
   (fromProps, fromState) => fromProps || fromState,
 );
+const durationSlotIdSelector = state => state.ui.reservations.durationSlotId;
 
 const reservationConfirmationSelector = createStructuredSelector({
   confirmReservationModalIsOpen: modalIsOpenSelectorFactory(ModalTypes.RESERVATION_CONFIRM),
@@ -32,6 +33,7 @@ const reservationConfirmationSelector = createStructuredSelector({
   resource: resourceSelector,
   selectedReservations: selectedReservationsSelector,
   staffEventSelected: staffEventSelectedSelector,
+  durationSlotId: durationSlotIdSelector,
 });
 
 export default reservationConfirmationSelector;

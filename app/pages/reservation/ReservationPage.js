@@ -106,7 +106,7 @@ class UnconnectedReservationPage extends Component {
   }
 
   handleReservation = (values = {}) => {
-    const { actions, reservationToEdit, resource, selected } = this.props;
+    const { actions, reservationToEdit, resource, selected, durationSlotId } = this.props;
     if (!isEmpty(selected)) {
       const { begin } = first(selected);
       const { end } = last(selected);
@@ -116,12 +116,14 @@ class UnconnectedReservationPage extends Component {
         actions.putReservation({
           ...reservation,
           ...values,
+          durationSlot: durationSlotId,
           begin,
           end,
         });
       } else {
         actions.postReservation({
           ...values,
+          durationSlot: durationSlotId,
           begin,
           end,
           resource: resource.id,
@@ -220,6 +222,7 @@ class UnconnectedReservationPage extends Component {
 UnconnectedReservationPage.propTypes = {
   actions: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
+  durationSlotId: PropTypes.number,
   isAdmin: PropTypes.bool.isRequired,
   isStaff: PropTypes.bool.isRequired,
   isFetchingResource: PropTypes.bool.isRequired,

@@ -9,24 +9,48 @@ function ReservationDate({ beginDate, endDate }) {
   }
   const reservationBegin = moment(beginDate);
   const reservationEnd = moment(endDate);
-  const day = reservationBegin.format('D');
-  const dayOfWeek = reservationBegin.format('dddd');
-  const month = reservationBegin.format('MMMM');
+  const beginDay = reservationBegin.format('D');
+  const endDay = reservationEnd.format('D');
+  const beginDayOfWeek = reservationBegin.format('dddd');
+  const endDayOfWeek = reservationEnd.format('dddd');
+  const beginMonth = reservationBegin.format('MMMM');
+  const endMonth = reservationEnd.format('MMMM');
   const beginTime = reservationBegin.format('HH:mm');
   const endTime = reservationEnd.format('HH:mm');
   const hours = reservationEnd.diff(reservationBegin, 'hours', true);
 
+  if (reservationBegin.isSame(reservationEnd, 'day')) {
+    return (
+      <div className="reservation-date">
+        <div className="reservation-date__content">
+          <h5 className="reservation-date__month">{beginMonth}</h5>
+          <h1>{beginDay}</h1>
+          <h5 className="reservation-date__day-of-week">{beginDayOfWeek}</h5>
+        </div>
+        <h3>
+          <img alt="" className="reservation-date__icon" src={iconClock} />
+          {` ${beginTime} \u2013 ${endTime} (${hours}h)`}
+        </h3>
+      </div>
+    );
+  }
   return (
     <div className="reservation-date">
-      <div className="reservation-date__content">
-        <h5 className="reservation-date__month">{month}</h5>
-        <h1>{day}</h1>
-        <h5 className="reservation-date__day-of-week">{dayOfWeek}</h5>
+      <div className="reservation-date__container">
+        <div className="reservation-date__content">
+          <h5 className="reservation-date__month">{beginMonth}</h5>
+          <h1>{beginDay}</h1>
+          <h5 className="reservation-date__day-of-week">{beginDayOfWeek}</h5>
+        </div>
+        <div>
+          <h1>-</h1>
+        </div>
+        <div className="reservation-date__content">
+          <h5 className="reservation-date__month">{endMonth}</h5>
+          <h1>{endDay}</h1>
+          <h5 className="reservation-date__day-of-week">{endDayOfWeek}</h5>
+        </div>
       </div>
-      <h3>
-        <img alt="" className="reservation-date__icon" src={iconClock} />
-        {` ${beginTime} \u2013 ${endTime} (${hours}h)`}
-      </h3>
     </div>
   );
 }

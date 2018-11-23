@@ -162,6 +162,16 @@ function reservationsReducer(state = initialState, action) {
       });
     }
 
+    case types.UI.SELECT_TIME_RANGE: {
+      const slot = action.payload;
+      return state.merge({ selected: [slot] });
+    }
+
+    case types.UI.SELECT_DURATION_SLOT: {
+      const durationSlotId = action.payload;
+      return state.merge({ durationSlotId });
+    }
+
     default: {
       return state;
     }

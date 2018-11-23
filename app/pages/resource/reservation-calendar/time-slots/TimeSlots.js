@@ -21,6 +21,7 @@ class TimeSlots extends Component {
     isLoggedIn: PropTypes.bool.isRequired,
     onClear: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
+    durationSlotId: PropTypes.number,
     resource: PropTypes.object.isRequired,
     selected: PropTypes.array.isRequired,
     selectedDate: PropTypes.string.isRequired,
@@ -185,6 +186,7 @@ class TimeSlots extends Component {
       isEditing,
       isLoggedIn,
       onClick,
+      durationSlotId,
       resource,
       selected,
       t,
@@ -214,6 +216,8 @@ class TimeSlots extends Component {
     const timeSlot = (
       <TimeSlot
         addNotification={addNotification}
+        allSelectedSlots={selected}
+        durationSlotId={durationSlotId}
         isAdmin={isAdmin}
         isEditing={isEditing}
         isHighlighted={isHighlighted}
