@@ -21,7 +21,7 @@ const resourceSelector = createResourceSelector(resourceIdSelector);
 const selectedSelector = state => state.ui.reservations.selected;
 const selectedReservationSlotSelector = state => state.ui.reservations.selectedSlot;
 const toEditSelector = state => state.ui.reservations.toEdit;
-
+const durationSlotIdSelector = state => state.ui.reservations.durationSlotId;
 const isEditingSelector = createSelector(
   toEditSelector,
   reservationsToEdit => Boolean(reservationsToEdit.length)
@@ -100,6 +100,7 @@ const reservationCalendarSelector = createStructuredSelector({
   selectedReservationSlot: selectedReservationSlotSelector,
   time: timeSelector,
   timeSlots: timeSlotsSelector,
+  durationSlotId: durationSlotIdSelector,
 });
 
 export default reservationCalendarSelector;

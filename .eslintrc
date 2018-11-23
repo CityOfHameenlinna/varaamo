@@ -65,6 +65,8 @@
 
     "react/prefer-stateless-function": "off",
 
+    "react/no-did-update-set-state": "off",
+
     "linebreak-style": 0
   }
 }

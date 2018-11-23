@@ -47,6 +47,7 @@ export class UnconnectedResourceCalendar extends Component {
     const selectedDay = new Date();
     selectedDay.setFullYear(year, month - 1, dayNumber);
     const selectedDateText = moment(selectedDate).format('dddd D. MMMM YYYY');
+
     return (
       <div className="app-ResourceCalendar">
         <FormGroup onClick={this.showOverlay}>

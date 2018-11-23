@@ -17,6 +17,7 @@ export class UnconnectedReservationConfirmationContainer extends Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     confirmReservationModalIsOpen: PropTypes.bool.isRequired,
+    durationSlotId: PropTypes.number,
     isMakingReservations: PropTypes.bool.isRequired,
     isStaff: PropTypes.bool.isRequired,
     params: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
@@ -40,7 +41,13 @@ export class UnconnectedReservationConfirmationContainer extends Component {
   }
 
   handleReservation = (values = {}) => {
-    const { actions, recurringReservations, resource, selectedReservations } = this.props;
+    const {
+      actions,
+      recurringReservations,
+      resource,
+      selectedReservations,
+      durationSlotId,
+    } = this.props;
     const orderedReservations = orderBy(selectedReservations, 'begin');
     const selectedReservation = Object.assign({}, first(orderedReservations));
     selectedReservation.end = last(orderedReservations).end;
@@ -50,6 +57,7 @@ export class UnconnectedReservationConfirmationContainer extends Component {
       actions.postReservation({
         ...reservation,
         ...values,
+        durationSlot: durationSlotId,
         resource: resource.id,
       });
     });

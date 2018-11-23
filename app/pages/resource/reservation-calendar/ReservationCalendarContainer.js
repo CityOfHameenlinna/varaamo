@@ -42,6 +42,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
     params: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
       id: PropTypes.string.isRequired,
     }).isRequired,
+    durationSlotId: PropTypes.number,
     resource: PropTypes.object.isRequired,
     selected: PropTypes.array.isRequired,
     t: PropTypes.func.isRequired,
@@ -122,6 +123,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
       isLoggedIn,
       isStaff,
       params,
+      durationSlotId,
       resource,
       selected,
       t,
@@ -138,6 +140,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
         {showTimeSlots &&
           <TimeSlots
             addNotification={actions.addNotification}
+            durationSlotId={durationSlotId}
             isAdmin={isAdmin}
             isEditing={isEditing}
             isFetching={isFetchingResource}

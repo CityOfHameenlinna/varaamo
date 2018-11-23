@@ -9,7 +9,7 @@ import Col from 'react-bootstrap/lib/Col';
 import Panel from 'react-bootstrap/lib/Panel';
 
 import { fetchResource } from 'actions/resourceActions';
-import { clearReservations, toggleResourceMap } from 'actions/uiActions';
+import { clearReservations, toggleResourceMap, selectDurationSlot } from 'actions/uiActions';
 import PageWrapper from 'pages/PageWrapper';
 import NotFoundPage from 'pages/not-found/NotFoundPage';
 import ResourceCalendar from 'shared/resource-calendar';
@@ -21,11 +21,16 @@ import ResourceHeader from './resource-header';
 import ResourceInfo from './resource-info';
 import ResourceMapInfo from './resource-map-info';
 import resourcePageSelector from './resourcePageSelector';
+import ReservationLongCalendar from './reservation-long-calendar';
+import DurationSlotChooser from './duration-slot-chooser';
 
 class UnconnectedResourcePage extends Component {
   constructor(props) {
     super(props);
     this.fetchResource = this.fetchResource.bind(this);
+    this.state = {
+      durationSlotId: undefined,
+    };
   }
 
   componentDidMount() {
@@ -39,18 +44,18 @@ class UnconnectedResourcePage extends Component {
     }
   }
 
+  handleDateChange = (newDate) => {
+    const { resource } = this.props;
+    const day = newDate.toISOString().substring(0, 10);
+    browserHistory.replace(getResourcePageUrl(resource, day));
+  }
+
   fetchResource(date = this.props.date) {
     const { actions, id } = this.props;
     const start = moment(date).subtract(2, 'M').startOf('month').format();
     const end = moment(date).add(2, 'M').endOf('month').format();
 
     actions.fetchResource(id, { start, end });
-  }
-
-  handleDateChange = (newDate) => {
-    const { resource } = this.props;
-    const day = newDate.toISOString().substring(0, 10);
-    browserHistory.replace(getResourcePageUrl(resource, day));
   }
 
   handleBackButton() {
@@ -128,7 +133,7 @@ class UnconnectedResourcePage extends Component {
                         <input className="btn btn-primary" type="submit" value="Siirry ulkoiseen ajanvarauskalenteriin" />
                       </form>
                     }
-                    {!resource.externalCalendarUrl &&
+                    {!resource.externalCalendarUrl && resource.reservationLengthType !== 'over_day' &&
                       <div>
                         {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
                         <ResourceCalendar
@@ -136,9 +141,35 @@ class UnconnectedResourcePage extends Component {
                           resourceId={resource.id}
                           selectedDate={date}
                         />
+                        {
+                          !isFetchingResource && resource.durationSlots.length > 0 && (
+                            <DurationSlotChooser
+                              onChange={this.setDurationSlot}
+                              resourceId={resource.id}
+                              selectDurationSlot={actions.selectDurationSlot}
+                            />
+                          )
+                        }
                         <ReservationCalendar
                           location={location}
                           params={params}
+                        />
+                      </div>
+                    }
+                    {!resource.externalCalendarUrl && resource.reservationLengthType === 'over_day' &&
+                      <div>
+                        {
+                          !isFetchingResource && resource.durationSlots.length > 0 && (
+                            <DurationSlotChooser
+                              resourceId={resource.id}
+                              selectDurationSlot={actions.selectDurationSlot}
+                            />
+                          )
+                        }
+                        <ReservationLongCalendar
+                          location={location}
+                          params={params}
+                          resourceId={resource.id}
                         />
                       </div>
                     }
@@ -180,6 +211,7 @@ function mapDispatchToProps(dispatch) {
   const actionCreators = {
     clearReservations,
     fetchResource,
+    selectDurationSlot,
     toggleResourceMap,
   };
 
