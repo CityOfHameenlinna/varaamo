@@ -7,6 +7,7 @@ import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import Col from 'react-bootstrap/lib/Col';
 import Panel from 'react-bootstrap/lib/Panel';
+import BigCalendar from 'react-big-calendar';
 
 import { fetchResource } from 'actions/resourceActions';
 import { clearReservations, toggleResourceMap } from 'actions/uiActions';
@@ -26,6 +27,14 @@ class UnconnectedResourcePage extends Component {
   constructor(props) {
     super(props);
     this.fetchResource = this.fetchResource.bind(this);
+    this.state = {
+      events: Object.assign([], this.props.resource.reservations).map(res => ({
+        start: moment(res.begin),
+        end: moment(res.end),
+        title: 'poontang',
+      })
+      ),
+    };
   }
 
   componentDidMount() {
@@ -64,6 +73,22 @@ class UnconnectedResourcePage extends Component {
     );
   }
 
+  handleLongReservationSelected = ({ begin, end }) => {
+    const title = 'foo';
+    if (title) {
+      this.setState({
+        events: [
+          ...this.state.events,
+          {
+            begin,
+            end,
+            title,
+          },
+        ],
+      });
+    }
+  }
+
   render() {
     const {
       actions,
@@ -85,6 +110,8 @@ class UnconnectedResourcePage extends Component {
     const maxPeriodText = getMaxPeriodText(t, resource);
 
     const images = this.orderImages(resource.images || []);
+
+    const localizer = BigCalendar.momentLocalizer(moment);
 
     return (
       <div className="app-ResourcePage">
@@ -128,7 +155,7 @@ class UnconnectedResourcePage extends Component {
                         <input className="btn btn-primary" type="submit" value="Siirry ulkoiseen ajanvarauskalenteriin" />
                       </form>
                     }
-                    {!resource.externalCalendarUrl &&
+                    {!resource.externalCalendarUrl && resource.reservationLengthType !== 'over_day' &&
                       <div>
                         {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
                         <ResourceCalendar
@@ -140,6 +167,18 @@ class UnconnectedResourcePage extends Component {
                           location={location}
                           params={params}
                         />
+                      </div>
+                    }
+                    {!resource.externalCalendarUrl && resource.reservationLengthType === 'over_day' &&
+                      <div>
+                        {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
+                        <div className="app-ResourcePage__bigCalendar">
+                          <BigCalendar
+                            events={this.state.events}
+                            localizer={localizer}
+                            selectable
+                          />
+                        </div>
                       </div>
                     }
                   </Panel>

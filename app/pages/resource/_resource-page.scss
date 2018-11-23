@@ -133,6 +133,10 @@ $content-padding: 10px;
     }
   }
 
+  .app-ResourcePage__bigCalendar {
+    height: 500px;
+  }
+
   @media (max-width: $resource-page-width) {
     margin-left: -15px;
     margin-right: -15px;
