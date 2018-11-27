@@ -174,8 +174,10 @@ class UnconnectedResourcePage extends Component {
                         {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
                         <div className="app-ResourcePage__bigCalendar">
                           <BigCalendar
+                            defaultDate={new Date(2018, 11, 27)}
                             events={this.state.events}
                             localizer={localizer}
+                            onSelectSlot={this.handleLongReservationSelected}
                             selectable
                           />
                         </div>
