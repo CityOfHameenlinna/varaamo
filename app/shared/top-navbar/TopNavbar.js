@@ -65,6 +65,12 @@ class TopNavbar extends Component {
             )}
           </Nav>
           <Nav activeKey="none" id="language-nav" onSelect={changeLocale} pullRight>
+            {/* Implement organization select here */}
+            <NavDropdown eventKey="lang" id="language-nav-dropdown" noCaret title={currentLanguage}>
+              {currentLanguage !== 'en' && <MenuItem eventKey="en">HELSINKI</MenuItem>}
+              {currentLanguage !== 'fi' && <MenuItem eventKey="fi">HÄMEENLINNA</MenuItem>}
+              {currentLanguage !== 'sv' && <MenuItem eventKey="sv">ESPOO1</MenuItem>}
+            </NavDropdown>
             <NavItem disabled>
               <img className="app-TopNavbar__icon" role="presentation" src={iconGlobe} />
             </NavItem>

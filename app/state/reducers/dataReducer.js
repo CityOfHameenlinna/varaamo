@@ -40,7 +40,7 @@ function handleReservation(state, reservation) {
 function dataReducer(state = initialState, action) {
   let reservation;
   switch (action.type) {
-
+    case types.API.ORGANIZATIONS_GET_SUCCESS:
     case types.API.PURPOSES_GET_SUCCESS:
     case types.API.RESERVATIONS_GET_SUCCESS:
     case types.API.RESOURCE_GET_SUCCESS:

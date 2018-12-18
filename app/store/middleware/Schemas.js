@@ -1,5 +1,6 @@
 import { arrayOf, Schema } from 'normalizr';
 
+const organizationSchema = new Schema('organizations');
 const purposeSchema = new Schema('purposes');
 const reservationSchema = new Schema('reservations', { idAttribute: 'url' });
 const resourceSchema = new Schema('resources');
@@ -9,10 +10,15 @@ resourceSchema.define({
   unit: unitSchema,
 });
 
+const paginatedOrganizationsSchema = new Schema('paginatedOrganizations');
 const paginatedPurposesSchema = new Schema('paginatedPurposes');
 const paginatedReservationsSchema = new Schema('paginatedReservations');
 const paginatedResourcesSchema = new Schema('paginatedResources');
 const paginatedUnitsSchema = new Schema('paginatedUnits');
+
+paginatedOrganizationsSchema.define({
+  results: arrayOf(organizationSchema),
+});
 
 paginatedPurposesSchema.define({
   results: arrayOf(purposeSchema),
@@ -31,10 +37,12 @@ paginatedUnitsSchema.define({
 });
 
 export default {
+  paginatedOrganizationsSchema,
   paginatedPurposesSchema,
   paginatedReservationsSchema,
   paginatedResourcesSchema,
   paginatedUnitsSchema,
+  organizationSchema,
   purposeSchema,
   resourceSchema,
   unitSchema,

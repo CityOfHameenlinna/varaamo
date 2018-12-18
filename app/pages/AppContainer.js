@@ -4,8 +4,10 @@ import BodyClassName from 'react-body-classname';
 import Grid from 'react-bootstrap/lib/Grid';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
+import { fetchOrganizations } from 'actions/organizationActions';
 import { fetchUser } from 'actions/userActions';
 import { enableGeoposition } from 'actions/uiActions';
 import Favicon from 'shared/favicon';
@@ -40,6 +42,7 @@ export class UnconnectedAppContainer extends Component {
     if (this.props.userId) {
       this.props.fetchUser(this.props.userId);
     }
+    this.props.actions.fetchOrganizations();
   }
 
   componentWillUpdate(nextProps) {
@@ -73,6 +76,7 @@ export class UnconnectedAppContainer extends Component {
 
 UnconnectedAppContainer.propTypes = {
   children: PropTypes.node,
+  actions: PropTypes.object.isRequired,
   enableGeoposition: PropTypes.func.isRequired,
   fetchUser: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
@@ -83,6 +87,9 @@ UnconnectedAppContainer.childContextTypes = {
   location: React.PropTypes.object,
 };
 
-const actions = { enableGeoposition, fetchUser };
+function mapDispatchToProps(dispatch) {
+  const actionCreators = { enableGeoposition, fetchUser, fetchOrganizations };
+  return { actions: bindActionCreators(actionCreators, dispatch) };
+}
 
-export default connect(selector, actions)(UnconnectedAppContainer);
+export default connect(selector, mapDispatchToProps)(UnconnectedAppContainer);
