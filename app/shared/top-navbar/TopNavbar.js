@@ -17,6 +17,9 @@ class TopNavbar extends Component {
     isLoggedIn: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired,
     userName: PropTypes.string.isRequired,
+    organizations: PropTypes.object,
+    selectOrganization: PropTypes.func,
+    selectedOrganization: PropTypes.object,
   };
 
   handleLoginClick() {
@@ -31,8 +34,9 @@ class TopNavbar extends Component {
       isLoggedIn,
       t,
       userName,
+      organizations,
+      selectOrganization,
     } = this.props;
-
     return (
       <Navbar className="app-TopNavbar" fluid>
         <Navbar.Header>
@@ -64,13 +68,23 @@ class TopNavbar extends Component {
               </NavItem>
             )}
           </Nav>
+          <Nav activeKey="none" id="organization-nav" onSelect={selectOrganization} pullRight>
+            {this.props.organizations &&
+              <NavDropdown
+                eventKey="org"
+                id="organization-nav-dropdown"
+                noCaret
+                title={this.props.selectedOrganization ? this.props.selectedOrganization.name : t('Navbar.organization')}
+              >
+                {Object.keys(organizations).map(key =>
+                  <MenuItem eventKey={key} key={key}>
+                    {this.props.organizations[key].name}
+                  </MenuItem>
+                  )}
+              </NavDropdown>
+            }
+          </Nav>
           <Nav activeKey="none" id="language-nav" onSelect={changeLocale} pullRight>
-            {/* Implement organization select here */}
-            <NavDropdown eventKey="lang" id="language-nav-dropdown" noCaret title={currentLanguage}>
-              {currentLanguage !== 'en' && <MenuItem eventKey="en">HELSINKI</MenuItem>}
-              {currentLanguage !== 'fi' && <MenuItem eventKey="fi">HÄMEENLINNA</MenuItem>}
-              {currentLanguage !== 'sv' && <MenuItem eventKey="sv">ESPOO1</MenuItem>}
-            </NavDropdown>
             <NavItem disabled>
               <img className="app-TopNavbar__icon" role="presentation" src={iconGlobe} />
             </NavItem>

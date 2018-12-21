@@ -108,6 +108,7 @@
   "Navbar.login": "Kirjaudu sisään",
   "Navbar.logout": "Kirjaudu ulos",
   "Navbar.search": "Haku",
+  "Navbar.organization": "Valitse organisaatio",
   "Navbar.userResources": "Omat varaukset",
   "NotFoundPage.checkAddress": "Jos syötit sivun osoitteen käsin, tarkista että se on oikein.",
   "NotFoundPage.contactUs": "Jos tulit tälle sivulle jostain toisesta sivustomme osasta, ota meihin yhteyttä, jotta voimme korjata virheen.",

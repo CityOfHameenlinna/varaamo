@@ -108,6 +108,7 @@
   "Navbar.login": "Log in",
   "Navbar.logout": "Log out",
   "Navbar.search": "Search",
+  "Navbar.organization": "Select an organization",
   "Navbar.userResources": "Your reservations",
   "NotFoundPage.checkAddress": "If you entered the address manually, please check it is written correctly.",
   "NotFoundPage.contactUs": "If you arrived at this page through another part of this site, please contact us so we can fix the problem.",

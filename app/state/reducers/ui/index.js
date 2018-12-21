@@ -6,6 +6,7 @@ import reservationInfoModalReducer from './reservationInfoModalReducer';
 import reservationsReducer from './reservationsReducer';
 import resourceMapReducer from './resourceMapReducer';
 import searchReducer from './searchReducer';
+import organizationReducer from './organizationReducer';
 
 const uiReducers = combineReducers({
   modals: modalsReducer,
@@ -14,6 +15,7 @@ const uiReducers = combineReducers({
   reservations: reservationsReducer,
   resourceMap: resourceMapReducer,
   search: searchReducer,
+  organization: organizationReducer,
 });
 
 export default uiReducers;

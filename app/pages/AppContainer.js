@@ -9,18 +9,22 @@ import { createStructuredSelector } from 'reselect';
 
 import { fetchOrganizations } from 'actions/organizationActions';
 import { fetchUser } from 'actions/userActions';
-import { enableGeoposition } from 'actions/uiActions';
+import { enableGeoposition, selectOrganization } from 'actions/uiActions';
 import Favicon from 'shared/favicon';
 import Footer from 'shared/footer';
 import Header from 'shared/header';
 import TestSiteMessage from 'shared/test-site-message';
 import Notifications from 'shared/notifications';
 import { getCustomizationClassName } from 'utils/customizationUtils';
+import selectedOrganizationSelector from '../state/selectors/selectedOrganizationSelector';
 
 const userIdSelector = state => state.auth.userId;
+const organizationSelector = state => state.data.organizations;
 
 export const selector = createStructuredSelector({
   userId: userIdSelector,
+  organizations: organizationSelector,
+  selectedOrganization: selectedOrganizationSelector,
 });
 
 export class UnconnectedAppContainer extends Component {
@@ -51,12 +55,21 @@ export class UnconnectedAppContainer extends Component {
     }
   }
 
+  selectOrganization = (organization) => {
+    this.props.actions.selectOrganization(organization);
+  }
+
   render() {
     return (
       <BodyClassName className={getCustomizationClassName()} >
         <DocumentTitle title="Varaamo">
           <div className="app">
-            <Header location={this.props.location}>
+            <Header
+              location={this.props.location}
+              organizations={this.props.organizations}
+              selectedOrganization={this.props.selectedOrganization}
+              selectOrganization={this.selectOrganization}
+            >
               <Favicon />
               <TestSiteMessage />
             </Header>
@@ -81,6 +94,9 @@ UnconnectedAppContainer.propTypes = {
   fetchUser: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
   userId: PropTypes.string,
+  organizations: PropTypes.object,
+  selectOrganization: PropTypes.func,
+  selectedOrganization: PropTypes.object,
 };
 
 UnconnectedAppContainer.childContextTypes = {
@@ -88,7 +104,7 @@ UnconnectedAppContainer.childContextTypes = {
 };
 
 function mapDispatchToProps(dispatch) {
-  const actionCreators = { enableGeoposition, fetchUser, fetchOrganizations };
+  const actionCreators = { enableGeoposition, fetchUser, fetchOrganizations, selectOrganization };
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 

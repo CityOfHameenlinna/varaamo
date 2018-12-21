@@ -110,6 +110,7 @@
   "Navbar.login": "Logga in",
   "Navbar.logout": "Logga ut",
   "Navbar.search": "Sök",
+  "Navbar.organization": "Välj en organisation",
   "Navbar.userResources": "Mina bokningar",
   "NotFoundPage.checkAddress": "Om du matade in webbadressen manuellt, kontrollera att den är korrekt.",
   "NotFoundPage.contactUs": "Om du kom hit från någon annan del av vår webbplats, ta kontakt med oss så att vi kan åtgärda problemet.",

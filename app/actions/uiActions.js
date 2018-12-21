@@ -111,6 +111,8 @@ const toggleResourceMap = createAction(types.UI.TOGGLE_RESOURCE_SHOW_MAP);
 
 const unfilterAdminResourceType = createAction(types.UI.UNFILTER_ADMIN_RESOURCE_TYPE);
 
+const selectOrganization = createAction(types.UI.SELECT_ORGANIZATION);
+
 export {
   cancelReservationEdit,
   cancelReservationEditInInfoModal,
@@ -142,4 +144,5 @@ export {
   toggleResourceMap,
   toggleTimeSlot,
   unfilterAdminResourceType,
+  selectOrganization,
 };

@@ -4,12 +4,16 @@ import Sticky from 'react-sticky-el';
 import MainNavbar from 'shared/main-navbar';
 import TopNavbar from 'shared/top-navbar';
 
-function Header({ children, location }) {
+function Header({ children, location, organizations, selectOrganization, selectedOrganization }) {
   const { pathname } = location;
   const activeLink = pathname === '/' ? 'home' : pathname.replace('/', '');
   return (
     <div className="app-Header">
-      <TopNavbar />
+      <TopNavbar
+        organizations={organizations}
+        selectedOrganization={selectedOrganization}
+        selectOrganization={selectOrganization}
+      />
       <Sticky>
         <MainNavbar activeLink={activeLink} />
       </Sticky>
@@ -21,6 +25,9 @@ function Header({ children, location }) {
 Header.propTypes = {
   children: PropTypes.node.isRequired,
   location: PropTypes.object.isRequired,
+  organizations: PropTypes.object,
+  selectOrganization: PropTypes.func,
+  selectedOrganization: PropTypes.object,
 };
 
 export default Header;
