@@ -10,7 +10,8 @@ import {
   getSuccessTypeDescriptor,
 } from 'utils/apiUtils';
 
-function fetchPurposes() {
+function fetchPurposes(selectedOrganization) {
+  const params = selectedOrganization ? { organization: selectedOrganization } : {};
   return {
     [CALL_API]: {
       types: [
@@ -21,7 +22,7 @@ function fetchPurposes() {
         ),
         getErrorTypeDescriptor(types.API.PURPOSES_GET_ERROR),
       ],
-      endpoint: buildAPIUrl('purpose'),
+      endpoint: buildAPIUrl('purpose', params),
       method: 'GET',
       headers: getHeadersCreator(),
       bailout: state => !state.api.shouldFetch.purposes,

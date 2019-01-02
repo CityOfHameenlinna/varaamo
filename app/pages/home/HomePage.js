@@ -34,7 +34,15 @@ class UnconnectedHomePage extends Component {
   }
 
   componentDidMount() {
-    this.props.actions.fetchPurposes();
+    this.props.actions.fetchPurposes(this.props.selectedOrganization.selectedOrganization);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { selectedOrganization } = this.props;
+    if (selectedOrganization.selectedOrganization !== 
+        nextProps.selectedOrganization.selectedOrganization) {
+      location.reload();
+    }
   }
 
   handleSearch(value = '') {
@@ -97,6 +105,7 @@ UnconnectedHomePage.propTypes = {
   isFetchingPurposes: PropTypes.bool.isRequired,
   purposes: PropTypes.array.isRequired,
   t: PropTypes.func.isRequired,
+  selectedOrganization: PropTypes.object,
 };
 
 UnconnectedHomePage = injectT(UnconnectedHomePage); // eslint-disable-line

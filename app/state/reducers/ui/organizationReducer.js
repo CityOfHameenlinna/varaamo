@@ -1,9 +1,13 @@
+import get from 'lodash/get';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
 
+const persistedData = JSON.parse(localStorage.getItem('redux-localstorage'));
+const persistedOrganization = get(persistedData, 'ui.organization.selectedOrganization');
+
 const initialState = Immutable({
-  selectedOrganization: {},
+  selectedOrganization: persistedOrganization,
 });
 
 function organizationReducer(state = initialState, action) {

@@ -6,6 +6,8 @@ import ActionTypes from 'constants/ActionTypes';
 import { purposesSelector } from 'state/selectors/dataSelectors';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 
+const organizationSelector = state => state.ui.organization;
+
 const purposeOptionsSelector = createSelector(
   purposesSelector,
   (purposes) => {
@@ -22,6 +24,7 @@ const purposeOptionsSelector = createSelector(
 const homePageSelector = createStructuredSelector({
   isFetchingPurposes: requestIsActiveSelectorFactory(ActionTypes.API.PURPOSES_GET_REQUEST),
   purposes: purposeOptionsSelector,
+  selectedOrganization: organizationSelector,
 });
 
 export default homePageSelector;
