@@ -14,6 +14,14 @@ export class UnconnectedSearchResults extends Component {
     scrollTo(findDOMNode(this));
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { selectedOrganization } = this.props;
+    if (selectedOrganization.selectedOrganization !==
+        nextProps.selectedOrganization.selectedOrganization) {
+      location.reload();
+    }
+  }
+
   render() {
     const {
       filters,
@@ -62,6 +70,7 @@ UnconnectedSearchResults.propTypes = {
   searchResultIds: PropTypes.array.isRequired,
   selectedUnitId: PropTypes.string,
   showMap: PropTypes.bool.isRequired,
+  selectedOrganization: PropTypes.object,
 };
 
 export default connect(searchResultsSelector)(UnconnectedSearchResults);

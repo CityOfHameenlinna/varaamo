@@ -143,7 +143,7 @@ UnconnectedSearchPage.propTypes = {
   showMap: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
   uiFilters: PropTypes.object.isRequired,
-  organization: PropTypes.object,
+  organization: PropTypes.string,
 };
 
 UnconnectedSearchPage = injectT(UnconnectedSearchPage); // eslint-disable-line
