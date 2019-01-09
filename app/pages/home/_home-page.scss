@@ -55,6 +55,7 @@
     &__banners {
       display: flex;
       flex-direction: row;
+      justify-content: center;
 
       @media (max-width: $screen-md-min) {
         display: block;
