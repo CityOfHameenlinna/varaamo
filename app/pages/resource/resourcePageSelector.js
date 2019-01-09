@@ -4,6 +4,7 @@ import ActionTypes from 'constants/ActionTypes';
 import { isAdminSelector, isLoggedInSelector } from 'state/selectors/authSelectors';
 import { createResourceSelector, unitsSelector } from 'state/selectors/dataSelectors';
 import dateSelector from 'state/selectors/dateSelector';
+import selectedOrganizationSelector from 'state/selectors/selectedOrganizationSelector'
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 
 const resourceIdSelector = (state, props) => props.params.id;
@@ -24,6 +25,7 @@ const resourcePageSelector = createStructuredSelector({
   resource: resourceSelector,
   showMap: showMapSelector,
   unit: unitSelector,
+  selectedOrganization: selectedOrganizationSelector
 });
 
 export default resourcePageSelector;

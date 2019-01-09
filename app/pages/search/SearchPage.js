@@ -25,14 +25,14 @@ class UnconnectedSearchPage extends Component {
   }
 
   componentDidMount() {
-    const { actions, filters, location, searchDone, uiFilters } = this.props;
+    const { actions, filters, location, searchDone, uiFilters, organization } = this.props;
     actions.fetchPurposes();
     actions.fetchUnits();
     if (!searchDone) {
-      this.searchResources(filters);
+      this.searchResources(Object.assign({}, filters, {organization}));
     }
     if (!isEqual(filters, uiFilters)) {
-      this.searchResources(filters);
+      this.searchResources(Object.assign({}, filters, {organization}));
     }
     if (location.state && location.state.scrollTop) {
       window.setTimeout(() => {

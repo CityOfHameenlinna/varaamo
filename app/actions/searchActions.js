@@ -28,9 +28,9 @@ function getPiwikActionName(searchParams) {
   return '-empty-search-';
 }
 
-function searchResources(filters = {}) {
+function searchResources(filters) {
   const params = getFetchParamsFromFilters(filters);
-  const fetchParams = Object.assign({}, params, { pageSize: constants.SEARCH_PAGE_SIZE });
+  const fetchParams = Object.assign({}, params, { pageSize: constants.SEARCH_PAGE_SIZE, organization: filters.organization });
   const piwikActionName = getPiwikActionName(fetchParams);
 
   return {

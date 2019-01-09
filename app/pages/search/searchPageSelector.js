@@ -14,6 +14,7 @@ const showMapSelector = state => state.ui.search.showMap;
 const selectedUnitIdSelector = state => state.ui.search.unitId;
 const positionSelector = state => state.ui.search.position;
 const resultCountSelector = state => state.ui.search.resultCount;
+const selectedOrganizationSelector = state => state.ui.organization.selectedOrganization;
 
 const orderedSearchResultIdsSelector = createSelector(
   searchResultIdsSelector,
@@ -36,6 +37,7 @@ const searchPageSelector = createStructuredSelector({
   selectedUnitId: selectedUnitIdSelector,
   showMap: showMapSelector,
   uiFilters: uiSearchFiltersSelector,
+  organization: selectedOrganizationSelector
 });
 
 export default searchPageSelector;
