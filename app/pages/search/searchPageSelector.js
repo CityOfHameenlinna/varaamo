@@ -37,7 +37,7 @@ const searchPageSelector = createStructuredSelector({
   selectedUnitId: selectedUnitIdSelector,
   showMap: showMapSelector,
   uiFilters: uiSearchFiltersSelector,
-  organization: selectedOrganizationSelector
+  organization: selectedOrganizationSelector,
 });
 
 export default searchPageSelector;

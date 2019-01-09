@@ -39,7 +39,7 @@ class UnconnectedHomePage extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { selectedOrganization } = this.props;
-    if (selectedOrganization.selectedOrganization !== 
+    if (selectedOrganization.selectedOrganization !==
         nextProps.selectedOrganization.selectedOrganization) {
       location.reload();
     }

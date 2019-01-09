@@ -30,7 +30,10 @@ function getPiwikActionName(searchParams) {
 
 function searchResources(filters) {
   const params = getFetchParamsFromFilters(filters);
-  const fetchParams = Object.assign({}, params, { pageSize: constants.SEARCH_PAGE_SIZE, organization: filters.organization });
+  const fetchParams = Object.assign({}, params, {
+    pageSize: constants.SEARCH_PAGE_SIZE,
+    organization: filters.organization,
+  });
   const piwikActionName = getPiwikActionName(fetchParams);
 
   return {

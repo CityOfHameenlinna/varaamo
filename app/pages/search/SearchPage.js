@@ -29,10 +29,10 @@ class UnconnectedSearchPage extends Component {
     actions.fetchPurposes();
     actions.fetchUnits();
     if (!searchDone) {
-      this.searchResources(Object.assign({}, filters, {organization}));
+      this.searchResources(Object.assign({}, filters, { organization }));
     }
     if (!isEqual(filters, uiFilters)) {
-      this.searchResources(Object.assign({}, filters, {organization}));
+      this.searchResources(Object.assign({}, filters, { organization }));
     }
     if (location.state && location.state.scrollTop) {
       window.setTimeout(() => {
@@ -143,6 +143,7 @@ UnconnectedSearchPage.propTypes = {
   showMap: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
   uiFilters: PropTypes.object.isRequired,
+  organization: PropTypes.object,
 };
 
 UnconnectedSearchPage = injectT(UnconnectedSearchPage); // eslint-disable-line
