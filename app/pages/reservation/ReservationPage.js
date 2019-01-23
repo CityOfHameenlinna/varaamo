@@ -42,9 +42,9 @@ class UnconnectedReservationPage extends Component {
     if (isEmpty(reservationCreated) && isEmpty(reservationEdited) &&
       isEmpty(reservationToEdit) && isEmpty(selected)) {
       if (location.query && !location.query.id && location.query.resource) {
-        browserHistory.replace(`/resources/${location.query.resource}`);
+        browserHistory.replace(`/varaamo/resources/${location.query.resource}`);
       } else {
-        browserHistory.replace('/my-reservations');
+        browserHistory.replace('/varaamo/my-reservations');
       }
     } else {
       this.fetchResource();
@@ -94,9 +94,9 @@ class UnconnectedReservationPage extends Component {
   handleCancel = () => {
     const { reservationToEdit, resource } = this.props;
     if (!isEmpty(reservationToEdit)) {
-      browserHistory.replace('/my-reservations');
+      browserHistory.replace('/varaamo/my-reservations');
     } else {
-      browserHistory.replace(`/resources/${resource.id}`);
+      browserHistory.replace(`/varaamo/resources/${resource.id}`);
     }
   }
 

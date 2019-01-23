@@ -75,7 +75,7 @@ function getEditReservationUrl(reservation) {
   const beginStr = moment(begin).format('YYYY-MM-DDTHH:mm');
   const endStr = moment(end).format('YYYY-MM-DDTHH:mm');
 
-  return `/reservation?begin=${beginStr}&end=${endStr}&id=${id || ''}&resource=${resource}`;
+  return `/varaamo/reservation?begin=${beginStr}&end=${endStr}&id=${id || ''}&resource=${resource}`;
 }
 
 export {

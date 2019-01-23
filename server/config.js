@@ -26,7 +26,7 @@ module.exports = {
     appJs: (
       isProduction ?
       `/_assets/app.js?${getAssetHash(path.resolve(__dirname, '../dist/app.js'))}` :
-      '/app.js'
+      '/varaamo/app.js'
     ),
   },
   isProduction,

@@ -104,8 +104,8 @@ class UnconnectedSearchControlsContainer extends Component {
   handleSearch = (newFilters = {}) => {
     const page = 1;
     const filters = { ...this.props.filters, ...newFilters, page };
-    browserHistory.push(`/search?${queryString.stringify(filters)}`);
-  };
+    browserHistory.push(`/varaamo/search?${queryString.stringify(filters)}`);
+  }
 
   handleReset = () => {
     const emptyFilters = Object.assign({}, constants.SUPPORTED_SEARCH_FILTERS);

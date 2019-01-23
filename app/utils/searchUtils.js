@@ -28,7 +28,7 @@ function getSearchPageUrl(filters = {}) {
     Object.assign({}, filters, { date: getDateString(filters.date) })
   );
 
-  return `/search?${query}`;
+  return `/varaamo/search?${query}`;
 }
 
 function pickSupportedFilters(filters) {
