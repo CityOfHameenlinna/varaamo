@@ -20,12 +20,12 @@ module.exports = {
   assetsSources: {
     appCss: (
       isProduction ?
-      `/_assets/app.css?${getAssetHash(path.resolve(__dirname, '../dist/app.css'))}` :
+      `/varaamo/_assets/app.css?${getAssetHash(path.resolve(__dirname, '../dist/app.css'))}` :
       ''
     ),
     appJs: (
       isProduction ?
-      `/_assets/app.js?${getAssetHash(path.resolve(__dirname, '../dist/app.js'))}` :
+      `/varaamo/_assets/app.js?${getAssetHash(path.resolve(__dirname, '../dist/app.js'))}` :
       '/varaamo/app.js'
     ),
   },

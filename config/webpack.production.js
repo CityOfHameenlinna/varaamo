@@ -14,7 +14,7 @@ module.exports = merge(common, {
   devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, '../dist'),
-    publicPath: '/_assets/',
+    publicPath: '/varaamo/_assets/',
     filename: 'app.js',
   },
   module: {
