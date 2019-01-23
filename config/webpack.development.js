@@ -18,7 +18,7 @@ module.exports = merge(common, {
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: 'app.js',
-    publicPath: '/',
+    publicPath: '/varaamo/',
   },
   module: {
     preLoaders: [

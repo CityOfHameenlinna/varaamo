@@ -26,7 +26,7 @@ function getSearchPageUrl(filters = {}) {
     )
   );
 
-  return `/search?${query}`;
+  return `/varaamo/search?${query}`;
 }
 
 function pickSupportedFilters(filters) {

@@ -21,7 +21,7 @@ class ReservationConfirmation extends Component {
   };
 
   handleReservationsButton() {
-    browserHistory.replace('/my-reservations');
+    browserHistory.replace('/varaamo/my-reservations');
   }
 
   renderField(field, label, value) {

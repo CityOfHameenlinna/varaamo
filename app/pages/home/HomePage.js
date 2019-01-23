@@ -40,11 +40,11 @@ class UnconnectedHomePage extends Component {
   }
 
   handleSearch(value = '') {
-    browserHistory.push(`/search?search=${value}`);
+    browserHistory.push(`/varaamo/search?search=${value}`);
   }
 
   handleBannerClick(purpose) {
-    browserHistory.push(`/search?purpose=${purpose}`);
+    browserHistory.push(`/varaamo/search?purpose=${purpose}`);
   }
 
   renderPurposeBanner(purpose) {

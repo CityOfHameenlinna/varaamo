@@ -56,33 +56,33 @@ export default (params) => {
   }
 
   return (
-    <Route component={AppContainer} onEnter={removeFacebookAppendedHash} path="/">
+    <Route component={AppContainer} onEnter={removeFacebookAppendedHash} path="/varaamo/">
       <Route onEnter={requireAuth}>
         <Route
           {...getDispatchers('AdminResources')}
           component={AdminResourcesPage}
-          path="/admin-resources"
+          path="/varaamo/admin-resources"
         />
         <Route
           {...getDispatchers('MyReservations')}
           component={UserReservationsPage}
-          path="/my-reservations"
+          path="/varaamo/my-reservations"
         />
         <Route
           {...getDispatchers('Reservation')}
           component={ReservationPage}
-          path="/reservation"
+          path="/varaamo/reservation"
         />
       </Route>
       <IndexRoute component={HomePage} {...getDispatchers('Home')} />
-      <Redirect from="/home" to="/" />
-      <Route component={SearchPage} {...getDispatchers('Search')} path="/search" />
-      <Route component={AboutPage} {...getDispatchers('About', { onEnter: scrollTop })} path="/about" />
-      <Redirect from="/resources/:id/reservation" to="/resources/:id" />
+      <Redirect from="/varaamo/home" to="/" />
+      <Route component={SearchPage} {...getDispatchers('Search')} path="/varaamo/search" />
+      <Route component={AboutPage} {...getDispatchers('About', { onEnter: scrollTop })} path="/varaamo/about" />
+      <Redirect from="/resources/:id/reservation" to="/varaamo/resources/:id" />
       <Route
         {...getDispatchers('Resource', { onEnter: scrollTop })}
         component={ResourcePage}
-        path="/resources/:id"
+        path="/varaamo/resources/:id"
       />
       <Route component={NotFoundPage} {...getDispatchers('NotFoundPage')} path="*" />
     </Route>

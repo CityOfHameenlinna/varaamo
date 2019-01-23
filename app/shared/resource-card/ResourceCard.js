@@ -19,22 +19,22 @@ import ResourceAvailability from './ResourceAvailability';
 class ResourceCard extends Component {
   handleSearchByType = () => {
     const filters = { search: this.props.resource.type.name };
-    browserHistory.push(`/search?${queryString.stringify(filters)}`);
+    browserHistory.push(`/varaamo/search?${queryString.stringify(filters)}`);
   };
 
   handleSearchByDistance = () => {
     const filters = { distance: this.props.resource.distance };
-    browserHistory.push(`/search?${queryString.stringify(filters)}`);
+    browserHistory.push(`/varaamo/search?${queryString.stringify(filters)}`);
   };
 
   handleSearchByPeopleCapacity = () => {
     const filters = { people: this.props.resource.peopleCapacity };
-    browserHistory.push(`/search?${queryString.stringify(filters)}`);
+    browserHistory.push(`/varaamo/search?${queryString.stringify(filters)}`);
   };
 
   handleSearchByUnit = () => {
     const filters = { unit: this.props.unit.id };
-    browserHistory.push(`/search?${queryString.stringify(filters)}`);
+    browserHistory.push(`/varaamo/search?${queryString.stringify(filters)}`);
   };
 
   handleLinkClick = () => {

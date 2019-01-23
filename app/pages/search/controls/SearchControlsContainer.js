@@ -111,7 +111,7 @@ class UnconnectedSearchControlsContainer extends Component {
     const { scrollToSearchResults } = this.props;
     const page = 1;
     const filters = { ...this.props.filters, ...newFilters, page };
-    browserHistory.push(`/search?${queryString.stringify(filters)}`);
+    browserHistory.push(`/varaamo/search?${queryString.stringify(filters)}`);
     if (!options.preventScrolling) {
       scrollToSearchResults();
     }
