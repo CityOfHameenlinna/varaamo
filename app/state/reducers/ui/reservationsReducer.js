@@ -62,6 +62,14 @@ function parseError(error) {
 
 function reservationsReducer(state = initialState, action) {
   switch (action.type) {
+    case types.API.ORDER_GET_SUCCESS: {
+      return state.merge({
+        selected: [],
+        toEdit: [],
+        toShow: [...state.toShow, action.payload],
+      });
+    }
+
     case types.API.RESERVATION_POST_SUCCESS: {
       return state.merge({
         selected: [],
@@ -170,6 +178,11 @@ function reservationsReducer(state = initialState, action) {
     case types.UI.SELECT_DURATION_SLOT: {
       const durationSlotId = action.payload;
       return state.merge({ durationSlotId });
+    }
+
+    case types.UI.SELECT_SKU: {
+      const skuId = action.payload;
+      return state.merge({ skuId });
     }
 
     default: {

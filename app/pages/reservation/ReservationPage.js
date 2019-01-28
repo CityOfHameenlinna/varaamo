@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 
+import { postOrder, fetchOrder } from 'actions/paymentActions';
 import { postReservation, putReservation } from 'actions/reservationActions';
 import { fetchResource } from 'actions/resourceActions';
 import {
@@ -20,6 +21,7 @@ import ReservationInformation from './reservation-information/ReservationInforma
 import ReservationPhases from './reservation-phases/ReservationPhases';
 import ReservationTime from './reservation-time/ReservationTime';
 import reservationPageSelector from './reservationPageSelector';
+import ReservationPayment from './reservation-payment/ReservationPayment';
 
 class UnconnectedReservationPage extends Component {
   constructor(props) {
@@ -43,8 +45,12 @@ class UnconnectedReservationPage extends Component {
       isEmpty(reservationToEdit) && isEmpty(selected)) {
       if (location.query && !location.query.id && location.query.resource) {
         browserHistory.replace(`/varaamo/resources/${location.query.resource}`);
-      } else {
+      } else if (!location.query.code) {
         browserHistory.replace('/varaamo/my-reservations');
+      } else if (location.query.code) {
+        this.fetchResource(location.query.resource);
+        this.fetchOrder(location.query.id);
+        window.scrollTo(0, 0);
       }
     } else {
       this.fetchResource();
@@ -56,13 +62,21 @@ class UnconnectedReservationPage extends Component {
     const {
       reservationCreated: nextCreated,
       reservationEdited: nextEdited,
+      location,
+      resource,
     } = nextProps;
     const {
       reservationCreated,
       reservationEdited,
     } = this.props;
+    const isPaid = location.query.code;
     if ((!isEmpty(nextCreated) || !isEmpty(nextEdited)) &&
       (nextCreated !== reservationCreated || nextEdited !== reservationEdited)) {
+      this.setState({
+        view: resource.usePayments && !isPaid ? 'payment' : 'confirmation',
+      });
+      window.scrollTo(0, 0);
+    } else if (resource.usePayments && isPaid && this.state.view !== 'confirmation') {
       this.setState({
         view: 'confirmation',
       });
@@ -75,13 +89,20 @@ class UnconnectedReservationPage extends Component {
     this.props.actions.closeReservationSuccessModal();
   }
 
-  fetchResource() {
+  fetchResource(resourceId) {
     const { actions, date, resource } = this.props;
     if (!isEmpty(resource)) {
       const start = moment(date).subtract(2, 'M').startOf('month').format();
       const end = moment(date).add(2, 'M').endOf('month').format();
       actions.fetchResource(resource.id, { start, end });
+    } else if (resourceId) {
+      actions.fetchResource(resourceId);
     }
+  }
+
+  fetchOrder = (reservationId) => {
+    const { actions } = this.props;
+    actions.fetchOrder(reservationId);
   }
 
   handleBack = () => {
@@ -103,6 +124,20 @@ class UnconnectedReservationPage extends Component {
   handleConfirmTime = () => {
     this.setState({ view: 'information' });
     window.scrollTo(0, 0);
+  }
+
+  handleOrder = () => {
+    const {
+      actions,
+      skuId,
+      location,
+      reservationCreated: nextCreated,
+    } = this.props;
+    actions.postOrder({ ...nextCreated,
+      reservation_id: nextCreated.id,
+      sku_id: skuId,
+      success_url: location.pathname + location.search,
+    });
   }
 
   handleReservation = (values = {}) => {
@@ -174,6 +209,7 @@ class UnconnectedReservationPage extends Component {
                 <ReservationPhases
                   currentPhase={view}
                   isEditing={isEditing || isEdited}
+                  usePayments={resource.usePayments}
                 />
                 {view === 'time' && isEditing &&
                   <ReservationTime
@@ -202,6 +238,9 @@ class UnconnectedReservationPage extends Component {
                     unit={unit}
                   />
                 }
+                {view === 'payment' && (reservationCreated || reservationEdited) &&
+                  <ReservationPayment handleOrder={this.handleOrder} />
+                }
                 {view === 'confirmation' && (reservationCreated || reservationEdited) &&
                   <ReservationConfirmation
                     isEdited={isEdited}
@@ -223,6 +262,7 @@ UnconnectedReservationPage.propTypes = {
   actions: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
   durationSlotId: PropTypes.number,
+  skuId: PropTypes.number,
   isAdmin: PropTypes.bool.isRequired,
   isStaff: PropTypes.bool.isRequired,
   isFetchingResource: PropTypes.bool.isRequired,
@@ -246,8 +286,10 @@ function mapDispatchToProps(dispatch) {
     closeReservationSuccessModal,
     fetchResource,
     openResourceTermsModal,
+    fetchOrder,
     putReservation,
     postReservation,
+    postOrder,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
