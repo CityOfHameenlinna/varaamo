@@ -15,10 +15,12 @@ import {
   selectReservationSlot,
   selectTimeRange,
   toggleTimeSlot,
+  selectSku,
 } from 'actions/uiActions';
 import { getEditReservationUrl } from 'utils/reservationUtils';
 import { hasMaxReservations } from 'utils/resourceUtils';
 import reservationLongCalendarSelector from './reservationLongCalendarSelector';
+import SkuChooser from '../sku-chooser/SkuChooser';
 
 
 export class UnconnectedReservationLongCalendar extends Component {
@@ -156,7 +158,7 @@ export class UnconnectedReservationLongCalendar extends Component {
   }
 
   render() {
-    const { t, availability, currentLanguage } = this.props;
+    const { t, availability, currentLanguage, actions, durationSlotId, resource } = this.props;
     const { from, to } = this.state;
     const modifiers = {
       start: from,
@@ -204,12 +206,19 @@ export class UnconnectedReservationLongCalendar extends Component {
         </div>
         {
           from && to && (
-            <Button
-              bsStyle="primary"
-              onClick={this.handleReserveClick}
-            >
-              {t('TimeSlots.reserveButton')}
-            </Button>
+            <div>
+              <SkuChooser
+                durationSlotId={durationSlotId}
+                resourceId={resource.id}
+                selectSku={actions.selectSku}
+              />
+              <Button
+                bsStyle="primary"
+                onClick={this.handleReserveClick}
+              >
+                {t('TimeSlots.reserveButton')}
+              </Button>
+            </div>
           )
         }
       </div>
@@ -242,6 +251,7 @@ function mapDispatchToProps(dispatch) {
     selectReservationSlot,
     toggleTimeSlot,
     selectTimeRange,
+    selectSku,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

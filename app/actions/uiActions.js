@@ -115,6 +115,8 @@ const selectTimeRange = createAction(types.UI.SELECT_TIME_RANGE);
 
 const selectDurationSlot = createAction(types.UI.SELECT_DURATION_SLOT);
 
+const selectSku = createAction(types.UI.SELECT_SKU);
+
 export {
   cancelReservationEdit,
   cancelReservationEditInInfoModal,
@@ -142,6 +144,7 @@ export {
   selectReservationToEdit,
   selectReservationSlot,
   selectReservationToShow,
+  selectSku,
   selectTimeRange,
   showReservationInfoModal,
   startReservationEditInInfoModal,
