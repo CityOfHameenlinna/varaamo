@@ -33,6 +33,7 @@ function fetchResource(id, params = {}) {
       endpoint: buildAPIUrl(`resource/${id}`, params),
       method: 'GET',
       headers: getHeadersCreator(),
+      credentials: 'same-origin',
     },
   };
 }
@@ -56,6 +57,7 @@ function fetchResources(params = {}, source) {
       endpoint: buildAPIUrl('resource', fetchParams),
       method: 'GET',
       headers: getHeadersCreator(),
+      credentials: 'same-origin',
     },
   };
 }
@@ -74,6 +76,7 @@ function favoriteResource(id) {
       endpoint: buildAPIUrl(`resource/${id}/favorite`),
       method: 'POST',
       headers: getHeadersCreator(),
+      credentials: 'same-origin',
     },
   };
 }
@@ -92,6 +95,7 @@ function unfavoriteResource(id) {
       endpoint: buildAPIUrl(`resource/${id}/unfavorite`),
       method: 'POST',
       headers: getHeadersCreator(),
+      credentials: 'same-origin',
     },
   };
 }
