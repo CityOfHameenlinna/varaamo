@@ -63,20 +63,20 @@ class UnconnectedReservationPage extends Component {
       reservationCreated: nextCreated,
       reservationEdited: nextEdited,
       location,
+      resource,
     } = nextProps;
     const {
       reservationCreated,
       reservationEdited,
     } = this.props;
-    const isChargeable = true;
     const isPaid = location.query.code;
     if ((!isEmpty(nextCreated) || !isEmpty(nextEdited)) &&
       (nextCreated !== reservationCreated || nextEdited !== reservationEdited)) {
       this.setState({
-        view: isChargeable && !isPaid ? 'payment' : 'confirmation',
+        view: resource.usePayments && !isPaid ? 'payment' : 'confirmation',
       });
       window.scrollTo(0, 0);
-    } else if (isChargeable && isPaid && this.state.view !== 'confirmation') {
+    } else if (resource.usePayments && isPaid && this.state.view !== 'confirmation') {
       this.setState({
         view: 'confirmation',
       });
@@ -198,7 +198,7 @@ class UnconnectedReservationPage extends Component {
     const end = !isEmpty(selected) ? last(selected).end : null;
     const selectedTime = begin && end ? { begin, end } : null;
     const title = t(`ReservationPage.${isEditing || isEdited ? 'editReservationTitle' : 'newReservationTitle'}`);
-
+    console.log(resource.usePayments);
     return (
       <div className="app-ReservationPage">
         <PageWrapper title={title} transparent>
@@ -208,8 +208,8 @@ class UnconnectedReservationPage extends Component {
               <Loader loaded={!isEmpty(resource)}>
                 <ReservationPhases
                   currentPhase={view}
-                  isChargeable
                   isEditing={isEditing || isEdited}
+                  usePayments={resource.usePayments}
                 />
                 {view === 'time' && isEditing &&
                   <ReservationTime
