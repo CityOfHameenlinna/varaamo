@@ -4,7 +4,7 @@ import cookieSession from 'cookie-session';
 import express from 'express';
 import nocache from 'nocache';
 
-import configurePassport from './configurePassport';
+import configurePassport from './configureHmlPassport';
 import getAuthState from './getAuthState';
 
 const router = express.Router();  // eslint-disable-line new-cap
@@ -29,11 +29,10 @@ router.get('/auth', nocache(), (req, res) => {
 });
 
 router.get('/login',
-  (req, res, next) => {
+  (req, res) => {
     req.session.next = req.query.next; // eslint-disable-line no-param-reassign
-    next();
-  },
-  passport.authenticate('helsinki')
+    res.redirect('/accounts/login/?next=/varaamo/login/hameenlinna');
+  }
 );
 
 router.get('/login/helsinki/return',
@@ -48,10 +47,17 @@ router.get('/login/helsinki/return',
     }
   });
 
+router.get('/login/hameenlinna',
+  passport.authenticate('hameenlinna'),
+  (req, res) => {
+    res.redirect('/varaamo/');
+  }
+);
+
 router.get('/logout', (req, res) => {
   req.logOut();
-  const redirectUrl = req.query.next || 'https://varaamo.hel.fi';
-  res.redirect(`https://api.hel.fi/sso/logout/?next=${redirectUrl}`);
+  const redirectUrl = req.query.next || '/varaamo/';
+  res.redirect(`https://varaukset.hameenlinna.fi/accounts/logout/?next=${redirectUrl}`);
 });
 
 export default router;

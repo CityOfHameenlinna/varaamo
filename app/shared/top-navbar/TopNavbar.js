@@ -19,7 +19,7 @@ class TopNavbar extends Component {
 
   handleLoginClick() {
     const next = encodeURIComponent(window.location.href);
-    window.location.assign(`${window.location.origin}/login?next=${next}`);
+    window.location.assign(`${window.location.origin}/varaamo/login?next=${next}`);
   }
 
   render() {
@@ -57,7 +57,7 @@ class TopNavbar extends Component {
               noCaret
               title={userName}
             >
-              <MenuItem eventKey="logout" href={`/logout?next=${window.location.origin}`}>
+              <MenuItem eventKey="logout" href={`/varaamo/logout?next=${window.location.origin}`}>
                 {t('Navbar.logout')}
               </MenuItem>
             </NavDropdown>
