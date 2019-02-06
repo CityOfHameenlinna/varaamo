@@ -198,7 +198,7 @@ class UnconnectedReservationPage extends Component {
     const end = !isEmpty(selected) ? last(selected).end : null;
     const selectedTime = begin && end ? { begin, end } : null;
     const title = t(`ReservationPage.${isEditing || isEdited ? 'editReservationTitle' : 'newReservationTitle'}`);
-    console.log(resource.usePayments);
+
     return (
       <div className="app-ReservationPage">
         <PageWrapper title={title} transparent>
