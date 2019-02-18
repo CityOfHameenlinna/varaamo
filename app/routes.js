@@ -27,7 +27,7 @@ export default (params) => {
       if (!auth.userId) {
         // To be able to login to a page without the react router "/#/" hash we need to use
         // the window.location.replace instead of the replaceState provided by react router.
-        window.location.replace(`${window.location.origin}/login`);
+        window.location.replace(`${window.location.origin}/varaamo/login`);
       }
       callback();
     }, 0);
