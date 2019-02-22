@@ -24,16 +24,15 @@ router.use(cookieSession({
 router.use(passport.initialize());
 router.use(passport.session());
 
-router.get('/varaamo/auth', nocache(), (req, res) => {
+router.get('/auth', nocache(), (req, res) => {
   res.json(getAuthState(req));
 });
 
-router.get('/varaamo/login',
+router.get('/login',
   (req, res) => {
     req.session.next = req.query.next; // eslint-disable-line no-param-reassign
     res.redirect('/accounts/login/?next=/varaamo/login/hameenlinna');
-  },
-  passport.authenticate('helsinki')
+  }
 );
 
 router.get('/login/helsinki/return',
@@ -48,14 +47,14 @@ router.get('/login/helsinki/return',
     }
   });
 
-router.get('/varaamo/login/hameenlinna',
+router.get('/login/hameenlinna',
   passport.authenticate('hameenlinna'),
   (req, res) => {
     res.redirect('/varaamo/');
   }
 );
 
-router.get('/varaamo/logout', (req, res) => {
+router.get('/logout', (req, res) => {
   req.logOut();
   const redirectUrl = req.query.next || '/varaamo/';
   res.redirect(`https://varaukset.hameenlinna.fi/accounts/logout/?next=${redirectUrl}`);
