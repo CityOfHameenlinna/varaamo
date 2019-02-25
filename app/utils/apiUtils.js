@@ -3,6 +3,7 @@ import pickBy from 'lodash/pickBy';
 import isEmpty from 'lodash/isEmpty';
 import { normalize } from 'normalizr';
 import { CALL_API, getJSON } from 'redux-api-middleware';
+import cookies from 'js-cookie/src/js.cookie';
 
 import constants from 'constants/AppConstants';
 
@@ -47,6 +48,7 @@ function getHeadersCreator(headers) {
     const authorizationHeaders = {};
     if (state.auth.token) {
       authorizationHeaders.Authorization = `JWT ${state.auth.token}`;
+      authorizationHeaders['X-CSRFToken'] = cookies.get('respa-csrftoken');
     }
     return Object.assign({}, constants.REQUIRED_API_HEADERS, headers, authorizationHeaders);
   };
