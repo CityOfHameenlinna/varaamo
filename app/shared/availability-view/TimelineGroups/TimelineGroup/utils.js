@@ -17,12 +17,16 @@ function getTimelineItems(date, reservations, resourceId) {
   const end = date.clone().endOf('day');
   while (timePointer.isBefore(end)) {
     const reservation = reservations && reservations[reservationPointer];
-    const isSlotReservation = reservation && timePointer.isSame(reservation.begin);
+    const isSlotReservation = reservation && timePointer.isBetween(reservation.begin, reservation.end, null, '[]');
     if (isSlotReservation) {
+      const width = getTimeSlotWidth({
+        startTime: timePointer.min(moment(reservation.start)),
+        endTime: end.max(moment(reservation.end)),
+      });
       items.push({
         key: String(items.length),
         type: 'reservation',
-        data: reservation,
+        data: { width, ...reservation },
       });
       timePointer = moment(reservation.end);
       reservationPointer += 1;
@@ -37,6 +41,7 @@ function getTimelineItems(date, reservations, resourceId) {
           // isSelectable: false by default to improve selector performance by allowing
           // addSelectionData to make some assumptions.
           isSelectable: false,
+          width: getTimeSlotWidth(),
         },
       });
       timePointer.add(slotSize, 'minutes');

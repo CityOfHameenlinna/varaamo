@@ -6,7 +6,6 @@ import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import Popover from 'react-bootstrap/lib/Popover';
 
 import ReservationAccessCode from 'shared/reservation-access-code';
-import utils from '../utils';
 import Link from './Link';
 
 function getReserverName(reserverName, user) {
@@ -33,14 +32,14 @@ Reservation.propTypes = {
 function Reservation({ onClick, ...reservation }) {
   const startTime = moment(reservation.begin);
   const endTime = moment(reservation.end);
-  const width = utils.getTimeSlotWidth({ startTime, endTime });
+  const width = reservation.width;
   const reserverName = getReserverName(reservation.reserverName, reservation.user);
   const popover = (
     <Popover className="reservation-popover" id={`popover-${reservation.id}`} title={reservation.eventSubject}>
       <div>
         <Glyphicon glyph="time" />
         {' '}
-        {startTime.format('HH:mm')} - {endTime.format('HH:mm')}
+        {startTime.format('YYYY-MM-DD HH:mm')} - {endTime.format('YYYY-MM-DD HH:mm')}
       </div>
       {reserverName && <div>{reserverName}</div>}
       {reservation.numberOfParticipants && <div><Glyphicon glyph="user" /> {reservation.numberOfParticipants}</div>}

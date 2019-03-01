@@ -31,7 +31,9 @@ export function selector() {
           reservation.state !== 'cancelled' &&
           reservation.state !== 'denied'
         )
-        .filter(reservation => reservation.begin.slice(0, 10) === date),
+        .filter(reservation =>
+          moment(date).isBetween(moment(reservation.begin).startOf('day'), moment(reservation.end).endOf('day'), null, '[]')
+        ),
       'begin'
     )
   );

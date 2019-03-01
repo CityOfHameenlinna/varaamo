@@ -26,6 +26,7 @@ export class UninjectedReservationSlot extends React.Component {
       resourceId: PropTypes.string.isRequired,
     }),
     t: PropTypes.func.isRequired,
+    width: PropTypes.number.isRequired,
   };
 
   constructor(props) {
@@ -103,7 +104,7 @@ export class UninjectedReservationSlot extends React.Component {
         onClick={this.handleClick}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
-        style={{ width: utils.getTimeSlotWidth() }}
+        style={{ width: this.props.width }}
       >
         <span className="a11y-text">Make reservation</span>
       </Link>
