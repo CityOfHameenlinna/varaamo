@@ -3,7 +3,6 @@ import classNames from 'classnames';
 
 import { injectT } from 'i18n';
 import ReservationPopover from 'shared/reservation-popover';
-import utils from '../utils';
 import Link from './Link';
 
 export class UninjectedReservationSlot extends React.Component {
@@ -22,6 +21,7 @@ export class UninjectedReservationSlot extends React.Component {
       hover: PropTypes.bool,
       resourceId: PropTypes.string.isRequired,
     }),
+    width: PropTypes.number.isRequired,
   };
 
   constructor(props) {
@@ -96,7 +96,7 @@ export class UninjectedReservationSlot extends React.Component {
         onClick={this.handleClick}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
-        style={{ width: utils.getTimeSlotWidth() }}
+        style={{ width: this.props.width }}
       >
         <span className="a11y-text">Make reservation</span>
       </Link>
