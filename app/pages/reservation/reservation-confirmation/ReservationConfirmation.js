@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import { FormattedHTMLMessage } from 'react-intl';
-import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
 import Well from 'react-bootstrap/lib/Well';
@@ -83,15 +82,6 @@ class ReservationConfirmation extends Component {
                 id="ReservationConfirmation.feedbackText"
                 values={{ href }}
               />
-            </p>
-            <p className="app-ReservationConfirmation__button-wrapper">
-              <Button
-                bsStyle="primary"
-                className="app-ReservationConfirmation__button"
-                onClick={() => this.handleReservationsButton()}
-              >
-                {t('ReservationConfirmation.ownReservationButton')}
-              </Button>
             </p>
           </Well>
         </Col>

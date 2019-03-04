@@ -103,9 +103,10 @@ function getAvailabilityDataForWholeDay(resource = {}, date = null) {
   };
 }
 
-function getHourlyPrice(t, { minPricePerHour, maxPricePerHour }) {
+function getHourlyPrice(t, resource) {
+  const { minPricePerHour, maxPricePerHour } = resource;
   if (!(minPricePerHour || maxPricePerHour)) {
-    return t('ResourceIcons.free');
+    return getSkuPrice(t, resource) || t('ResourceIcons.free');
   }
   if ((minPricePerHour && maxPricePerHour) && (minPricePerHour !== maxPricePerHour)) {
     return `${Number(minPricePerHour)} - ${Number(maxPricePerHour)} €/h`;
@@ -113,9 +114,20 @@ function getHourlyPrice(t, { minPricePerHour, maxPricePerHour }) {
   const priceString = maxPricePerHour || minPricePerHour;
   const price = priceString !== 0 ? Number(priceString) : 0;
   if (price === 0) {
-    return t('ResourceIcons.free');
+    return getSkuPrice(t, resource) || t('ResourceIcons.free');
   }
   return price ? `${price} €/h` : null;
+}
+
+function getSkuPrice(t, { durationSlots }) {
+  if (durationSlots.length > 0) {
+    const ds = durationSlots.filter((slot) => {
+      const skus = slot.skus.filter(sku => parseFloat(sku.price) > 0);
+      return skus[0];
+    });
+    return ds[0] ? t('ResourceIcons.chargeable') : null;
+  }
+  return null;
 }
 
 function getHumanizedPeriod(period) {
