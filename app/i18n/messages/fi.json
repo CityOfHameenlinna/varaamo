@@ -238,6 +238,7 @@
   "ResourceHeader.favoriteAddButton": "Lisää suosikiksi",
   "ResourceHeader.favoriteRemoveButton": "Poista suosikeista",
   "ResourceIcons.free": "Maksuton",
+  "ResourceIcons.chargeable": "Maksullinen",
   "ResourceInfo.additionalInfoTitle": "Tilan lisätiedot",
   "ResourceInfo.equipmentHeader": "Tilan varusteet",
   "ResourceInfo.serviceMapLink": "Katso reitti Palvelukartasta",
