@@ -16,6 +16,10 @@ function getCustomizationClassName() {
       return 'vantaa-customizations';
     }
 
+    case 'HAMEENLINNA': {
+      return 'hameenlinna-customizations';
+    }
+
     default: {
       return '';
     }

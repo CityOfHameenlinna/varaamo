@@ -13,6 +13,7 @@ const defaultPosition = {
   null: [60.18952, 24.99545],
   ESPOO: [60.205490, 24.755899],
   VANTAA: [60.29414, 25.14099],
+  HAMEENLINNA: [60.99596, 24.46434],
 };
 const defaultZoom = 12;
 

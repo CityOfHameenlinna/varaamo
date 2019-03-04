@@ -5,6 +5,8 @@ export default {
     'varaamotest-espoo.hel.ninja': 'ESPOO',
     'varaamo.vantaa.fi': 'VANTAA',
     'varaamotest-vantaa.hel.ninja': 'VANTAA',
+    'varaukset.hameenlinna.fi': 'HAMEENLINNA',
+    'varaukset.haltudemo.fi': 'HAMEENLINNA',
   },
   DATE_FORMAT: 'YYYY-MM-DD',
   DEFAULT_LOCALE: 'fi',
