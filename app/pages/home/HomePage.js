@@ -17,6 +17,9 @@ import iconPhotoAndAudio from './images/frontpage_music.svg';
 import iconSports from './images/frontpage_sport.svg';
 import iconGuidance from './images/frontpage_guidance.svg';
 import iconMeetingsAndWorking from './images/frontpage_work.svg';
+import iconCottagesAndSaunas from './images/frontpage_cottage.svg';
+import iconLeantosAndHuts from './images/frontpage_lean-to.svg';
+import iconFields from './images/frontpage_field.svg';
 
 const purposeIcons = {
   photoAndAudio: iconPhotoAndAudio,
@@ -24,6 +27,9 @@ const purposeIcons = {
   guidance: iconGuidance,
   manufacturing: iconManufacturing,
   meetingsAndWorking: iconMeetingsAndWorking,
+  cottagesSaunas: iconCottagesAndSaunas,
+  leanTosHuts: iconLeantosAndHuts,
+  fields: iconFields,
 };
 
 class UnconnectedHomePage extends Component {
@@ -51,7 +57,7 @@ class UnconnectedHomePage extends Component {
     const { t } = this.props;
     const image = purposeIcons[camelCase(purpose.value)];
     return (
-      <Col className="app-HomePageContent__banner" key={purpose.value} md={3} sm={6} xs={6}>
+      <Col className="app-HomePageContent__banner" key={purpose.value} md={4} sm={4} xs={4}>
         <div>
           <img alt={purpose.label} src={image} />
           <h5>{purpose.label}</h5>

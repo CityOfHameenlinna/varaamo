@@ -25,6 +25,12 @@ const customizedTranslationKeys = {
     reservable: 'AboutPageContent.vantaaReservableParagraph',
     partners: 'AboutPageContent.vantaaPartnersHeader',
   },
+  HAMEENLINNA: {
+    header: 'AboutPageContent.hameenlinnaHeader',
+    lead: 'AboutPageContent.hameenlinnaLead',
+    reservable: 'AboutPageContent.hameenlinnaReservableParagraph',
+    partners: 'AboutPageContent.hameenlinnaPartnersHeader',
+  },
 };
 
 function AboutPageContent({ t }) {
