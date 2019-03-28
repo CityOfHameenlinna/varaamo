@@ -45,9 +45,9 @@ class UnconnectedReservationPage extends Component {
       isEmpty(reservationToEdit) && isEmpty(selected)) {
       if (location.query && !location.query.id && location.query.resource) {
         browserHistory.replace(`/varaamo/resources/${location.query.resource}`);
-      } else if (!location.query.code) {
+      } else if (!location.query.reservation) {
         browserHistory.replace('/varaamo/my-reservations');
-      } else if (location.query.code) {
+      } else if (location.query.reservation) {
         this.fetchResource(location.query.resource);
         this.fetchOrder(location.query.id);
         window.scrollTo(0, 0);

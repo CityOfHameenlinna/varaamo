@@ -243,6 +243,7 @@
   "ResourceHeader.favoriteAddButton": "Add favorite",
   "ResourceHeader.favoriteRemoveButton": "Remove favorite",
   "ResourceIcons.free": "Free of charge",
+  "ResourceIcons.chargeable": "Chargeable",
   "ResourceInfo.additionalInfoTitle": "Premise additional information",
   "ResourceInfo.equipmentHeader": "Premise equipment",
   "ResourceInfo.serviceMapLink": "Search route on Service Map",

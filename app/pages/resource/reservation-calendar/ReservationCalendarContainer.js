@@ -15,6 +15,7 @@ import {
   openConfirmReservationModal,
   selectReservationSlot,
   toggleTimeSlot,
+  selectSku,
 } from 'actions/uiActions';
 import constants from 'constants/AppConstants';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
@@ -28,6 +29,7 @@ import { hasMaxReservations, reservingIsRestricted } from 'utils/resourceUtils';
 import reservationCalendarSelector from './reservationCalendarSelector';
 import ReservingRestrictedText from './ReservingRestrictedText';
 import TimeSlots from './time-slots';
+import SkuChooser from '../sku-chooser/SkuChooser';
 
 export class UnconnectedReservationCalendarContainer extends Component {
   static propTypes = {
@@ -161,6 +163,11 @@ export class UnconnectedReservationCalendarContainer extends Component {
         )}
         {showTimeSlots && selected.length > 0 && (
           <Row className="reservation-calendar-reserve-info">
+            <SkuChooser
+              durationSlotId={durationSlotId}
+              resourceId={resource.id}
+              selectSku={actions.selectSku}
+            />
             <Col xs={8}>
               <b>{t('TimeSlots.selectedDate')} </b>
               {this.getSelectedTimeText(selected)}
@@ -207,6 +214,7 @@ function mapDispatchToProps(dispatch) {
     changeRecurringBaseTime: recurringReservations.changeBaseTime,
     openConfirmReservationModal,
     selectReservationSlot,
+    selectSku,
     toggleTimeSlot,
   };
 
