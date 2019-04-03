@@ -15,7 +15,7 @@ class SkuChooser extends Component {
   render() {
     const { t, resource, durationSlotId, skuId } = this.props;
     const skus = resource.durationSlots.find(durSlot => durationSlotId === durSlot.id).skus;
-    const options = skus.map(sku => ({ value: sku.id, label: sku.name }));
+    const options = skus.map(sku => ({ value: sku.id, label: `${sku.name} ${sku.price.toLocaleString('fi-FI')} €` }));
 
     const selectValue = skuId || 'not_chosen';
 
