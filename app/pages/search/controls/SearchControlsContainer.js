@@ -31,7 +31,6 @@ import TimeRangeControl from './TimeRangeControl';
 import iconTimes from './images/times.svg';
 
 class UnconnectedSearchControlsContainer extends Component {
-
   componentDidMount() {
     const { actions, urlSearchFilters } = this.props;
     actions.changeSearchFilters(urlSearchFilters);
@@ -63,21 +62,16 @@ class UnconnectedSearchControlsContainer extends Component {
     return hasFilters;
   }
 
-  handleDateChange = ({ date, duration, end, start }) => {
-    const dateInCorrectFormat = (
-      moment(date, 'L').format(constants.DATE_FORMAT)
-    );
+  handleDateChange = ({ date }) => {
+    const dateInCorrectFormat = moment(date, 'L').format(constants.DATE_FORMAT);
     this.handleFiltersChange({
       date: dateInCorrectFormat,
-      duration,
-      end,
-      start,
     });
-  }
+  };
 
   handleFiltersChange = (newFilters) => {
     this.props.actions.changeSearchFilters(newFilters);
-  }
+  };
 
   handlePositionSwitch = () => {
     if (!this.props.position) {
@@ -85,11 +79,11 @@ class UnconnectedSearchControlsContainer extends Component {
     } else {
       this.props.actions.disableGeoposition();
     }
-  }
+  };
 
   handleSearchBoxChange = (value) => {
     this.props.actions.changeSearchFilters({ search: value });
-  }
+  };
 
   handleTimeRangeChange = ({ duration, end, start }) => {
     this.handleFiltersChange({
@@ -97,7 +91,7 @@ class UnconnectedSearchControlsContainer extends Component {
       end,
       start,
     });
-  }
+  };
 
   handleTimeRangeSwitch = (value) => {
     if (value) {
@@ -105,16 +99,12 @@ class UnconnectedSearchControlsContainer extends Component {
     } else {
       this.props.actions.disableTimeRange();
     }
-  }
+  };
 
-  handleSearch = (newFilters = {}, options = {}) => {
-    const { scrollToSearchResults } = this.props;
+  handleSearch = (newFilters = {}) => {
     const page = 1;
     const filters = { ...this.props.filters, ...newFilters, page };
-    browserHistory.push(`/search?${queryString.stringify(filters)}`);
-    if (!options.preventScrolling) {
-      scrollToSearchResults();
-    }
+    browserHistory.push(`/varaamo/search?${queryString.stringify(filters)}`);
   }
 
   handleReset = () => {
@@ -123,7 +113,7 @@ class UnconnectedSearchControlsContainer extends Component {
       this.props.actions.disableGeoposition();
     }
     this.handleFiltersChange(emptyFilters);
-  }
+  };
 
   render() {
     const {
@@ -208,13 +198,16 @@ class UnconnectedSearchControlsContainer extends Component {
                     onChange={this.handleTimeRangeChange}
                     onTimeRangeSwitch={this.handleTimeRangeSwitch}
                     start={filters.start}
+                    useTimeRange={filters.useTimeRange}
                   />
                 </Col>
                 <Col className="app-SearchControlsContainer__control" md={4} sm={6}>
                   <CheckboxControl
                     id="charge"
                     label={t('SearchControlsContainer.chargeLabel')}
+                    labelClassName="app-SearchControlsCheckbox__label"
                     onConfirm={value => this.handleFiltersChange({ charge: value })}
+                    toggleClassName="app-SearchControlsCheckbox__toggle"
                     value={filters.charge}
                   />
                 </Col>
@@ -231,7 +224,7 @@ class UnconnectedSearchControlsContainer extends Component {
                 >
                   {t('SearchControlsContainer.searchButton')}
                 </Button>
-                {hasFilters &&
+                {hasFilters && (
                   <Button
                     bsStyle="link"
                     className="app-SearchControlsContainer__reset-button"
@@ -241,7 +234,7 @@ class UnconnectedSearchControlsContainer extends Component {
                     <img alt="" src={iconTimes} />
                     {t('SearchControlsContainer.resetButton')}
                   </Button>
-                }
+                )}
               </Col>
             </Row>
           </div>
@@ -259,7 +252,6 @@ UnconnectedSearchControlsContainer.propTypes = {
   isFetchingUnits: PropTypes.bool.isRequired,
   position: PropTypes.object,
   purposeOptions: PropTypes.array.isRequired,
-  scrollToSearchResults: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   unitOptions: PropTypes.array.isRequired,
   urlSearchFilters: PropTypes.object.isRequired,
@@ -281,6 +273,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export { UnconnectedSearchControlsContainer };
-export default connect(searchControlsSelector, mapDispatchToProps)(
-  UnconnectedSearchControlsContainer
-);
+export default connect(
+  searchControlsSelector,
+  mapDispatchToProps
+)(UnconnectedSearchControlsContainer);

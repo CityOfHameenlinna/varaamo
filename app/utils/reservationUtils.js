@@ -72,11 +72,10 @@ function getNextReservation(reservations) {
 
 function getEditReservationUrl(reservation) {
   const { begin, end, id, resource } = reservation;
-  const date = moment(begin).format('YYYY-MM-DD');
-  const beginStr = moment(begin).format('HH:mm');
-  const endStr = moment(end).format('HH:mm');
+  const beginStr = moment(begin).format('YYYY-MM-DDTHH:mm');
+  const endStr = moment(end).format('YYYY-MM-DDTHH:mm');
 
-  return `/reservation?begin=${beginStr}&date=${date}&end=${endStr}&id=${id || ''}&resource=${resource}`;
+  return `/varaamo/reservation?begin=${beginStr}&end=${endStr}&id=${id || ''}&resource=${resource}`;
 }
 
 export {

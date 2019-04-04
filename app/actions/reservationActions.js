@@ -55,6 +55,7 @@ function deleteReservation(reservation) {
       endpoint: reservation.url,
       method: 'DELETE',
       headers: getHeadersCreator(),
+      credentials: 'same-origin',
     },
   };
 }
@@ -79,6 +80,7 @@ function fetchReservations(params = {}) {
       endpoint: buildAPIUrl('reservation', fetchParams),
       method: 'GET',
       headers: getHeadersCreator(),
+      credentials: 'same-origin',
     },
   };
 }
@@ -113,6 +115,7 @@ function postReservation(reservation) {
       endpoint: url,
       method: 'POST',
       headers: getHeadersCreator(),
+      credentials: 'same-origin',
       body: parseReservationData(reservation),
     },
   };
@@ -141,6 +144,7 @@ function putReservation(reservation) {
       endpoint: reservation.url,
       method: 'PUT',
       headers: getHeadersCreator(),
+      credentials: 'same-origin',
       body: parseReservationData(reservation),
     },
   };

@@ -27,6 +27,8 @@ const unitSelector = createSelector(
   unitsSelector,
   (resource, units) => units[resource.unit] || {}
 );
+const durationSlotIdSelector = state => state.ui.reservations.durationSlotId;
+const skuIdSelector = state => state.ui.reservations.skuId;
 
 const reservationPageSelector = createStructuredSelector({
   date: dateSelector,
@@ -42,6 +44,8 @@ const reservationPageSelector = createStructuredSelector({
   reservationEdited: editedSelector,
   unit: unitSelector,
   user: currentUserSelector,
+  durationSlotId: durationSlotIdSelector,
+  skuId: skuIdSelector,
 });
 
 export default reservationPageSelector;

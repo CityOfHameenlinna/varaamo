@@ -43,6 +43,7 @@ function ResourceHeader({
   const priceText = getHourlyPrice(t, resource);
   const typeName = resource.type ? resource.type.name : '\u00A0';
   const distance = formatDistance(resource.distance);
+  const isOverDayResource = resource.reservationLengthType === 'over_day';
 
   return (
     <section className="app-ResourceHeader">
@@ -71,10 +72,12 @@ function ResourceHeader({
               />
               <span className="app-ResourceHeader__info-label">{peopleCapacityText}</span>
             </div>
-            <div className="app-ResourceHeader__info">
-              <img alt={maxPeriodText} className="app-ResourceHeader__info-icon" src={iconClock} />
-              <span className="app-ResourceHeader__info-label">{maxPeriodText}</span>
-            </div>
+            {!isOverDayResource && (
+              <div className="app-ResourceHeader__info">
+                <img alt={maxPeriodText} className="app-ResourceHeader__info-icon" src={iconClock} />
+                <span className="app-ResourceHeader__info-label">{maxPeriodText}</span>
+              </div>
+            )}
             <div className="app-ResourceHeader__info">
               <img alt={priceText} className="app-ResourceHeader__info-icon" src={iconTicket} />
               <span className="app-ResourceHeader__info-label">{priceText}</span>

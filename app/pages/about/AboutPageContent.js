@@ -25,6 +25,12 @@ const customizedTranslationKeys = {
     reservable: 'AboutPageContent.vantaaReservableParagraph',
     partners: 'AboutPageContent.vantaaPartnersHeader',
   },
+  HAMEENLINNA: {
+    header: 'AboutPageContent.hameenlinnaHeader',
+    lead: 'AboutPageContent.hameenlinnaLead',
+    reservable: 'AboutPageContent.hameenlinnaReservableParagraph',
+    partners: 'AboutPageContent.hameenlinnaPartnersHeader',
+  },
 };
 
 function AboutPageContent({ t }) {
@@ -38,28 +44,34 @@ function AboutPageContent({ t }) {
     <div>
       <h1>{t(translationKeys.header)}</h1>
       <p className="lead">{t(translationKeys.lead)}</p>
-      <p>{t('AboutPageContent.pilotParagraph')}</p>
-      <p>{t(translationKeys.reservable)}</p>
-      <p><FormattedHTMLMessage id="AboutPageContent.basedOnParagraph" /></p>
-      <p>{t('AboutPageContent.developmentParagraph')}</p>
-      <p>{t('AboutPageContent.goalParagraph')}</p>
-      <p>
-        {t('AboutPageContent.feedbackParagraph')}
-        {' '}
-        <FeedbackLink>{t('AboutPageContent.feedbackLink')}</FeedbackLink>
-      </p>
-      {translationKeys.partners && (
+      {customization === 'HAMEENLINNA' ? (
+        <p><FormattedHTMLMessage id="AboutPageContent.hameenlinnaGeneral" /></p>
+      ) :
         <div>
-          <h3>{t(translationKeys.partners)}</h3>
-          <AboutPartners />
+          <p>{t('AboutPageContent.pilotParagraph')}</p>
+          <p>{t(translationKeys.reservable)}</p>
+          <p><FormattedHTMLMessage id="AboutPageContent.basedOnParagraph" /></p>
+          <p>{t('AboutPageContent.developmentParagraph')}</p>
+          <p>{t('AboutPageContent.goalParagraph')}</p>
+          <p>
+            {t('AboutPageContent.feedbackParagraph')}
+            {' '}
+            <FeedbackLink>{t('AboutPageContent.feedbackLink')}</FeedbackLink>
+          </p>
+          {translationKeys.partners && (
+            <div>
+              <h3>{t(translationKeys.partners)}</h3>
+              <AboutPartners />
+            </div>
+          )}
         </div>
-      )}
+      }
 
       <h3>{t('AboutPageContent.customerRegisterHeader')}</h3>
       <p>
         {t('AboutPageContent.customerRegisterParagraph')}
         {' '}
-        <a href="https://app.helmet-kirjasto.fi/varaamo/rekisteriseloste.php">
+        <a href="https://www.hameenlinna.fi/hallinto-ja-talous/tietoa-hameenlinnasta/tietosuoja-ja-oikeudet/tietosuojaselosteet/">
           {t('AboutPageContent.customerRegisterLink')}
         </a>
       </p>

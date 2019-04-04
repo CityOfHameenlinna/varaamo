@@ -12,7 +12,7 @@ import { getSearchPageUrl } from 'utils/searchUtils';
 
 export function handleLoginClick() {
   const next = encodeURIComponent(window.location.href);
-  window.location.assign(`${window.location.origin}/login?next=${next}`);
+  window.location.assign(`${window.location.origin}/varaamo/login?next=${next}`);
 }
 
 function Navbar(props) {
@@ -67,7 +67,7 @@ function Navbar(props) {
         <Nav id="main-nav" stacked>
           {isLoggedIn && (
             <NavItem
-              href={`/logout?next=${window.location.origin}`}
+              href={`/varaamo/logout?next=${window.location.origin}`}
               onClick={onNavItemClick}
             >
                 {t('Navbar.logout')}

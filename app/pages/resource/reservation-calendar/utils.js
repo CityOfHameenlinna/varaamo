@@ -1,18 +1,22 @@
-import { filter, first, last, orderBy, some } from 'lodash';
+import { filter, maxBy, minBy, some } from 'lodash';
 import moment from 'moment';
 
 import constants from 'constants/AppConstants';
 
 function getBeginOfSelection(selected) {
-  return first(orderBy(selected, 'begin'));
+  return minBy(selected, 'begin');
 }
 
 function getEndOfSelection(selected) {
-  return last(orderBy(selected, 'begin'));
+  return maxBy(selected, 'begin');
 }
 
 function getNextDayFromDate(date) {
-  return date ? moment(date).add(1, 'days').format(constants.DATE_FORMAT) : null;
+  return date
+    ? moment(date)
+        .add(1, 'days')
+        .format(constants.DATE_FORMAT)
+    : null;
 }
 
 function getNextWeeksDays(date) {
@@ -26,16 +30,22 @@ function getNextWeeksDays(date) {
 }
 
 function getSecondDayFromDate(date) {
-  return date ? moment(date).add(2, 'days').format(constants.DATE_FORMAT) : null;
+  return date
+    ? moment(date)
+        .add(2, 'days')
+        .format(constants.DATE_FORMAT)
+    : null;
 }
 
 function isInsideOpeningHours(slot, openingHours) {
   const date = moment(slot.start).format(constants.DATE_FORMAT);
   const slotOpeningHours = filter(openingHours, { date });
-  return some(slotOpeningHours, opening => (
-    moment(opening.opens).isSameOrBefore(slot.start) &&
-    moment(slot.end).isSameOrBefore(opening.closes)
-  ));
+  return some(
+    slotOpeningHours,
+    opening =>
+      moment(opening.opens).isSameOrBefore(slot.start) &&
+      moment(slot.end).isSameOrBefore(opening.closes)
+  );
 }
 
 function isSlotAfterSelected(slot, selected) {
@@ -43,7 +53,7 @@ function isSlotAfterSelected(slot, selected) {
     return false;
   }
   const firstSelected = getBeginOfSelection(selected);
-  return moment(firstSelected.begin).isSameOrBefore(slot.start);
+  return firstSelected.begin <= slot.start;
 }
 
 function isSlotSelectable(slot, selected, resource, lastSelectableFound, isAdmin) {
@@ -55,14 +65,20 @@ function isSlotSelectable(slot, selected, resource, lastSelectableFound, isAdmin
   }
   const firstSelected = getBeginOfSelection(selected);
   if (!isAdmin && resource.maxPeriod) {
-    const maxPeriodMinutes = moment.duration(resource.maxPeriod).asMinutes();
-    const maxEndTime = moment(firstSelected.begin).add(maxPeriodMinutes, 'minutes');
-    if (moment(slot.start).isSameOrAfter(maxEndTime)) {
+    const durationParts = resource.maxPeriod.split(':');
+    // eslint-disable-next-line no-mixed-operators
+    const maxPeriodMinutes = 60 * durationParts[0] + durationParts[1];
+    const maxEndDate = new Date(firstSelected.begin);
+    maxEndDate.setMinutes(maxEndDate.getMinutes() + maxPeriodMinutes);
+    if (new Date(slot.start) >= maxEndDate) {
       return false;
     }
   }
-  return moment(firstSelected.begin).isSame(slot.start, 'day') &&
-    moment(firstSelected.begin).isSameOrBefore(slot.start);
+  const firstSelectedDate = new Date(firstSelected.begin);
+  const slotStartDate = new Date(slot.start);
+  return (
+    firstSelectedDate <= slotStartDate && firstSelectedDate.getDate() === slotStartDate.getDate()
+  );
 }
 
 function isSlotSelected(slot, selected) {
@@ -71,16 +87,41 @@ function isSlotSelected(slot, selected) {
   }
   const firstSelected = getBeginOfSelection(selected);
   const lastSelected = getEndOfSelection(selected);
-  return moment(firstSelected.begin).isSameOrBefore(slot.start) &&
-    moment(lastSelected.end).isSameOrAfter(slot.end);
+  return firstSelected.begin <= slot.start && lastSelected.end >= slot.end;
+}
+
+function isFirstSelected(slot, selected) {
+  if (!slot || !selected || !selected.length) {
+    return false;
+  }
+  const firstSelected = getBeginOfSelection(selected);
+  return firstSelected.begin === slot.start;
+}
+
+function isHighlighted(slot, selected, hovered) {
+  if (!slot || !selected || !hovered || !selected.length) {
+    return false;
+  }
+  const firstSelected = getBeginOfSelection(selected);
+  const firstSelectedDate = new Date(firstSelected.begin);
+  const slotStartDate = new Date(slot.start);
+  const hoveredDate = new Date(hovered.start);
+  return (
+    slotStartDate > firstSelectedDate &&
+    slotStartDate < hoveredDate &&
+    firstSelectedDate.getDate() === slotStartDate.getDate() &&
+    slotStartDate.getDate() === slotStartDate.getDate()
+  );
 }
 
 export default {
   getNextDayFromDate,
   getNextWeeksDays,
   getSecondDayFromDate,
+  isHighlighted,
   isInsideOpeningHours,
   isSlotAfterSelected,
   isSlotSelectable,
   isSlotSelected,
+  isFirstSelected,
 };

@@ -24,6 +24,7 @@ function fetchPurposes() {
       endpoint: buildAPIUrl('purpose'),
       method: 'GET',
       headers: getHeadersCreator(),
+      credentials: 'same-origin',
       bailout: state => !state.api.shouldFetch.purposes,
     },
   };

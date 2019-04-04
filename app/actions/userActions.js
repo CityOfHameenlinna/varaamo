@@ -30,6 +30,7 @@ function fetchUser(id, params = {}) {
       endpoint: buildAPIUrl(`user/${id}`, params),
       method: 'GET',
       headers: getHeadersCreator(),
+      credentials: 'same-origin',
     },
   };
 }

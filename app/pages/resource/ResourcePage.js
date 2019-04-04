@@ -13,7 +13,7 @@ import Lightbox from 'lightbox-react';
 import 'lightbox-react/style.css';
 
 import { fetchResource } from 'actions/resourceActions';
-import { clearReservations, toggleResourceMap } from 'actions/uiActions';
+import { clearReservations, toggleResourceMap, selectDurationSlot } from 'actions/uiActions';
 import PageWrapper from 'pages/PageWrapper';
 import NotFoundPage from 'pages/not-found/NotFoundPage';
 import ResourceCalendar from 'shared/resource-calendar';
@@ -25,6 +25,8 @@ import ResourceHeader from './resource-header';
 import ResourceInfo from './resource-info';
 import ResourceMapInfo from './resource-map-info';
 import resourcePageSelector from './resourcePageSelector';
+import ReservationLongCalendar from './reservation-long-calendar';
+import DurationSlotChooser from './duration-slot-chooser';
 
 class UnconnectedResourcePage extends Component {
   constructor(props) {
@@ -36,6 +38,9 @@ class UnconnectedResourcePage extends Component {
     };
 
     this.fetchResource = this.fetchResource.bind(this);
+    this.state = {
+      durationSlotId: undefined,
+    };
   }
 
   componentDidMount() {
@@ -54,6 +59,12 @@ class UnconnectedResourcePage extends Component {
     const height = 420;
 
     return `${image.url}?dim=${width}x${height}`;
+  }
+
+  handleDateChange = (newDate) => {
+    const { resource } = this.props;
+    const day = newDate.toISOString().substring(0, 10);
+    browserHistory.replace(getResourcePageUrl(resource, day));
   }
 
   fetchResource(date = this.props.date) {
@@ -184,7 +195,7 @@ class UnconnectedResourcePage extends Component {
                         />
                       </form>
                     )}
-                    {!resource.externalReservationUrl && (
+                    {!resource.externalCalendarUrl && resource.reservationLengthType !== 'over_day' &&
                       <div>
                         {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
                         <ResourceCalendar
@@ -192,9 +203,38 @@ class UnconnectedResourcePage extends Component {
                           resourceId={resource.id}
                           selectedDate={date}
                         />
-                        <ReservationCalendar location={location} params={params} />
+                        {
+                          !isFetchingResource && resource.durationSlots.length > 0 && (
+                            <DurationSlotChooser
+                              onChange={this.setDurationSlot}
+                              resourceId={resource.id}
+                              selectDurationSlot={actions.selectDurationSlot}
+                            />
+                          )
+                        }
+                        <ReservationCalendar
+                          location={location}
+                          params={params}
+                        />
                       </div>
-                    )}
+                    }
+                    {!resource.externalCalendarUrl && resource.reservationLengthType === 'over_day' &&
+                      <div>
+                        {
+                          !isFetchingResource && resource.durationSlots.length > 0 && (
+                            <DurationSlotChooser
+                              resourceId={resource.id}
+                              selectDurationSlot={actions.selectDurationSlot}
+                            />
+                          )
+                        }
+                        <ReservationLongCalendar
+                          location={location}
+                          params={params}
+                          resourceId={resource.id}
+                        />
+                      </div>
+                    }
                   </Panel>
                 </Col>
                 <Col className="app-ResourceInfo__images" lg={3} md={3} xs={12}>
@@ -251,6 +291,7 @@ function mapDispatchToProps(dispatch) {
   const actionCreators = {
     clearReservations,
     fetchResource,
+    selectDurationSlot,
     toggleResourceMap,
   };
 

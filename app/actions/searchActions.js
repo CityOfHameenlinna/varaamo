@@ -60,6 +60,7 @@ function searchResources(filters = {}) {
       endpoint: buildAPIUrl('resource', fetchParams),
       method: 'GET',
       headers: getHeadersCreator(),
+      credentials: 'same-origin',
     },
   };
 }

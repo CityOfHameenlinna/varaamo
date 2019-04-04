@@ -1,12 +1,8 @@
-import classNames from 'classnames';
-import moment from 'moment';
 import React, { PropTypes } from 'react';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
-import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
-import Popover from 'react-bootstrap/lib/Popover';
+import classNames from 'classnames';
 
 import { injectT } from 'i18n';
-import utils from '../utils';
+import ReservationPopover from 'shared/reservation-popover';
 import Link from './Link';
 
 export class UninjectedReservationSlot extends React.Component {
@@ -25,7 +21,7 @@ export class UninjectedReservationSlot extends React.Component {
       hover: PropTypes.bool,
       resourceId: PropTypes.string.isRequired,
     }),
-    t: PropTypes.func.isRequired,
+    width: PropTypes.number.isRequired,
   };
 
   constructor(props) {
@@ -47,10 +43,11 @@ export class UninjectedReservationSlot extends React.Component {
   }
 
   getIsSelected(selection = this.props.selection) {
-    return selection && (
-      (!selection.resourceId || selection.resourceId === this.props.resourceId) &&
-      this.props.begin >= selection.begin &&
-      this.props.end <= selection.end
+    return (
+      selection &&
+      ((!selection.resourceId || selection.resourceId === this.props.resourceId) &&
+        this.props.begin >= selection.begin &&
+        this.props.end <= selection.end)
     );
   }
 
@@ -63,11 +60,7 @@ export class UninjectedReservationSlot extends React.Component {
   }
 
   shouldShowPopover(isSelected, props = this.props) {
-    return (
-      isSelected &&
-      !props.selection.hover &&
-      props.selection.begin === props.begin
-    );
+    return isSelected && !props.selection.hover && props.selection.begin === props.begin;
   }
 
   handleClick(event) {
@@ -103,51 +96,20 @@ export class UninjectedReservationSlot extends React.Component {
         onClick={this.handleClick}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
-        style={{ width: utils.getTimeSlotWidth() }}
+        style={{ width: this.props.width }}
       >
         <span className="a11y-text">Make reservation</span>
       </Link>
     );
     if (this.shouldShowPopover(isSelected)) {
-      const reservationLength = moment.duration(
-        moment(this.props.selection.end).diff(
-          moment(this.props.selection.begin)
-        )
-      );
-      const popover = (
-        <Popover
-          className="reservation-slot-popover"
-          id="popover-selection-information"
-          title={this.props.t('ReservationSlot.selectionInfoHeader')}
-        >
-          <span className="reservation-slot-popover-time">
-            {moment(this.props.selection.begin).format('HH:mm')}
-            –
-            {moment(this.props.selection.end).format('HH:mm')}
-          </span>
-          <span className="reservation-slot-popover-length">
-            {
-              reservationLength.hours() ?
-              `(${reservationLength.hours()}h ${reservationLength.minutes()}min)` :
-              `(${reservationLength.minutes()}min)`
-            }
-          </span>
-          <Glyphicon
-            className="reservation-slot-popover-cancel"
-            glyph="trash"
-            onClick={this.props.onSelectionCancel}
-          />
-        </Popover>
-      );
       return (
-        <OverlayTrigger
-          defaultOverlayShown
-          overlay={popover}
-          placement="top"
-          trigger={[]}
+        <ReservationPopover
+          begin={this.props.selection.begin}
+          end={this.props.selection.end}
+          onCancel={this.props.onSelectionCancel}
         >
           {slot}
-        </OverlayTrigger>
+        </ReservationPopover>
       );
     }
     return slot;

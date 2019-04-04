@@ -1,0 +1,263 @@
+@import "./variables";
+
+.hameenlinna-customizations {
+
+  // Typography
+  // ----------
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $font-family;
+    font-weight: $font-weight-bold;
+  }
+
+  p {
+    font-family: $font-family;
+    font-weight: $font-weight-regular;
+  }
+
+  a {
+    color: $black;
+    font-family: $font-family;
+    font-weight: bold;
+
+    &:hover {
+      color: $black;
+    }
+  }
+
+  .btn-primary {
+    background-color: $blue;
+    font-family: $font-family;
+    border-color: $blue;
+    color: $white;
+  }
+  .btn-primary:hover {
+    background-color: lighten($blue, 5);
+    border-color: lighten($blue, 5);
+  }
+  
+  div {
+    font-family: $font-family;
+  }
+
+  // Navbar
+  // ------
+
+  .navbar-brand {
+    padding: 15px 15px;
+  }
+  .brand-logo {
+    background-image: url('../../../../shared/logo/hameenlinna-city-logo.png');
+    width: 172px;
+  }
+
+  .app-MainNavbar {
+    background-color: $blue;
+  }
+
+  .app-SideNavbar .app-Sidebar__sidebar {
+    background-color: $blue;
+
+    h1, h2, h3, h4, h5, h6, p, a {
+      color: $white;
+      &:hover, &:focus {
+        color: $white;
+      }
+    }
+
+    .app-Navbar {
+      background-color: $blue;
+      .main-nav {
+        .nav.nav-stacked {
+          li {
+            border-bottom: 1px solid lighten($blue, 6);
+            &:first-of-type {
+              border-top: 1px solid lighten($blue, 6);
+            }
+          }
+        }
+      }
+    }
+  
+  }
+
+  .app-SideNavbar__toggle {
+    background-color: $blue;
+    color: $white;
+
+    &:hover, &:focus {
+      color: $white;
+    }
+  }
+
+  // Footer
+  // ------
+
+  footer {
+    background-color: $blue;
+    text-align: left;
+    
+    a {
+      color: $white;
+      font-family: $font-family;
+      font-weight: bold;
+  
+      &:hover {
+        color: $white;
+      }
+    }
+
+    .brand-link img {
+      max-width: 100%;
+      max-height: 50px;
+      height: auto;
+      margin: 0;
+      margin-bottom: 20px;
+    }
+
+    .brand-link, .brand-link:hover {
+      color: #fff;
+    }
+
+    .about-link {
+      color: #fff;
+    }
+
+  }
+
+  // Home-page
+  // ----------
+
+  .app-HomePage {
+    background-image: url("./images/etusivu_tausta.jpg");
+  }
+
+  .app-HomePage__koro {
+    visibility: hidden;
+  }
+
+  .app-HomePageContent {
+    padding-top: 50px;
+  }
+
+  .app-HomePage .app-HomePageContent__banner {
+    div {
+      background-color: $orange;
+      color: $blue;
+    }
+  }
+
+  // Search-page
+  // -----------
+
+  .app-SearchControlsContainer {
+    background-color: $orange;
+  }
+
+  .app-MapToggle {
+    background-color: $orange;
+    button {
+      background-color: $orange;
+      border-color: $orange;
+    }
+    button:hover,
+    button:active {
+      background-color: darken($orange, 5);
+      border-color: darken($orange, 5);
+    }
+  }
+
+  // Resource-page
+  // -------------
+
+  .app-ResourceHeader {
+    background-color: $orange;
+  }
+
+  .app-TimeSlot {
+    &--disabled {
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+
+    &--own-reservation {
+      background-color: $blue;
+
+      &:hover {
+        cursor: not-allowed;
+        background-color: $blue;
+      }
+    }
+  }
+
+  // Admin-resources-page
+  // --------------------
+
+  .availability-view {
+    .top-left, .date-selector {
+      background-color: $blue;
+    }
+    .reservation {
+      background-color: $blue;
+
+      &-link:hover {
+        text-decoration: none;
+      }
+      &.requested {
+        background-color: $warning;
+      }
+      &.disabled {
+        background-color: $red;
+      }
+    }
+
+    .reservation-slot {
+      &-selected {
+        background-color: $blue;
+      }
+    }
+  }
+
+  // About-page
+  // ----------
+
+  .about-page {
+    .about-page-logos {
+      margin-bottom: 20px;
+      margin-top: -15px;
+
+      .aika-logo {
+        height: 40px;
+        margin-top: 20px;
+        margin-right: 10px;
+      }
+      .eu-vipuvoimaa-logo {
+        height: 60px;
+        margin-top: 20px;
+        margin-right: 10px;
+      }
+      .eakr-logo {
+        height: 80px;
+        margin-top: 20px;
+      }
+    }
+  }
+
+  // Modals
+  // ------
+  .modal {
+    .modal-header::before {
+      background-image: url('../../shared/logo/hameenlinna-city-logo.png');
+    }
+  }
+  .app-ResourceInfo__images-wrapper,
+  .app-DatePickerControl__modal-header,
+  .app-PurposeControl__modal-header,
+  .app-PositionControl__modal-header,
+  .app-PeopleCapacityControl__modal-header {
+    h1, h2, h3, h4, h5, h6 {
+      color: white;
+    }
+  }
+}

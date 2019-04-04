@@ -113,7 +113,11 @@ class ReservationInformation extends Component {
 
     const termsAndConditions = getTermsAndConditions(resource);
     const beginText = moment(selectedTime.begin).format('D.M.YYYY HH:mm');
-    const endText = moment(selectedTime.end).format('HH:mm');
+    let endTimeFormat = 'HH:mm';
+    if (!moment(selectedTime.begin).isSame(selectedTime.end, 'day')) {
+      endTimeFormat = 'D.M.YYYY HH:mm';
+    }
+    const endText = moment(selectedTime.end).format(endTimeFormat);
     const hours = moment(selectedTime.end).diff(selectedTime.begin, 'minutes') / 60;
 
     return (

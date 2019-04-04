@@ -34,7 +34,7 @@ TimeRange.propTypes = {
 
 TimeRange.defaultProps = {
   beginFormat: 'dddd, LLL',
-  endFormat: 'LT',
+  endFormat: 'dddd, LLL',
 };
 
 export default TimeRange;

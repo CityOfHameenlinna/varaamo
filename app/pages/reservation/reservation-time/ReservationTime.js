@@ -26,7 +26,7 @@ class ReservationTime extends Component {
   handleDateChange = (newDate) => {
     const { resource } = this.props;
     const day = newDate.toISOString().substring(0, 10);
-    browserHistory.replace(`/reservation?date=${day}&resource=${resource.id}`);
+    browserHistory.replace(`/varaamo/reservation?date=${day}&resource=${resource.id}`);
   }
 
   render() {

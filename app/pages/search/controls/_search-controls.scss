@@ -39,6 +39,7 @@
         font-size: 16px;
         a {
           padding-left: 24px;
+          cursor: pointer;
           position: relative;
           text-decoration: underline;
           &::before {
@@ -54,7 +55,7 @@
             width: $line-height-computed;
           }
         }
-        a[aria-selected="true"]::before {
+        a[aria-selected='true']::before {
           background-image: url('./images/angle-down.svg');
         }
       }
@@ -63,16 +64,36 @@
       padding: 0;
     }
   }
-  .Select .Select-control,
-  .Select.is-open .Select-control {
-    background-color: transparent;
+
+  .Select {
+    .Select-control {
+      transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    }
+
+    &,
+    &.is-open {
+      .Select-control {
+        background-color: transparent;
+      }
+    }
+
+    &.is-disabled .Select-control {
+      background-color: $silver;
+      border: 2px solid $dark-gray;
+      color: $dark-gray;
+    }
   }
+
   .select:before {
     background-color: $copper;
   }
 
   .form-group {
     margin-bottom: 0;
+  }
+
+  .form-control {
+    color: $black;
   }
 
   .form-control[disabled] {
@@ -132,21 +153,14 @@
 // ---------------------
 
 .app-PositionControl {
-  padding-top: 15px;
-
   &__toggle-content > label {
     display: flex;
     justify-content: space-between;
     font-weight: normal;
     white-space: normal;
   }
-  &__label {
-    line-height: $line-height-computed;
-    display: inline-block;
-    font-weight: normal;
-  }
 
-  &__distance_slider{
+  &__distance_slider {
     margin-top: 15px;
     &_tooltip {
       z-index: 40000;
@@ -167,7 +181,6 @@
     background-color: $copper;
   }
 }
-
 
 // DatePickerControl styles
 // ------------------------
@@ -190,7 +203,8 @@
     img {
       margin-right: 6px;
     }
-    img, span {
+    img,
+    span {
       vertical-align: middle;
     }
   }
@@ -219,7 +233,7 @@
   }
 
   .DayPicker-NavBar {
-    padding: .75rem .5rem;
+    padding: 0.75rem 0.5rem;
   }
 
   .DayPicker-Caption {
@@ -300,28 +314,24 @@
 }
 
 .app-TimeRangeControl {
-  padding: 15px 0 0 0;
   max-width: 400px;
-  margin: 0 auto;
 
-  &__header {
-    display: inline-block;
-    margin-bottom: 15px;
+  @media (min-width: $screen-sm-min) {
+    margin: 0 auto;
   }
-  &__label {
-    line-height: $line-height-computed;
-    display: inline-block;
-    font-weight: normal;
-  }
+
   &__range {
     align-items: baseline;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-top: 8px;
+
     &-separator {
       padding: 0;
       margin: 0 6px;
     }
+
     .Select {
       flex: 1 2 25%;
       &:last-child {
@@ -376,5 +386,18 @@
   &__content {
     background-color: $white;
     padding: 20px;
+  }
+}
+
+.app-SearchControlsCheckbox {
+  @media (max-width: $screen-md-max) {
+    &__toggle {
+      float: left;
+    }
+
+    &__label {
+      display: block;
+      padding-left: 60px;
+    }
   }
 }

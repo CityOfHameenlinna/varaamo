@@ -11,9 +11,11 @@ import { first, last, orderBy } from 'lodash';
 import { addNotification } from 'actions/notificationsActions';
 import {
   cancelReservationEdit,
+  clearTimeSlots,
   openConfirmReservationModal,
   selectReservationSlot,
   toggleTimeSlot,
+  selectSku,
 } from 'actions/uiActions';
 import constants from 'constants/AppConstants';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
@@ -27,6 +29,7 @@ import { hasMaxReservations, reservingIsRestricted } from 'utils/resourceUtils';
 import reservationCalendarSelector from './reservationCalendarSelector';
 import ReservingRestrictedText from './ReservingRestrictedText';
 import TimeSlots from './time-slots';
+import SkuChooser from '../sku-chooser/SkuChooser';
 
 export class UnconnectedReservationCalendarContainer extends Component {
   static propTypes = {
@@ -45,6 +48,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
       // eslint-disable-line react/no-unused-prop-types
       id: PropTypes.string.isRequired,
     }).isRequired,
+    durationSlotId: PropTypes.number,
     resource: PropTypes.object.isRequired,
     selected: PropTypes.array.isRequired,
     t: PropTypes.func.isRequired,
@@ -125,6 +129,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
       isLoggedIn,
       isStaff,
       params,
+      durationSlotId,
       resource,
       selected,
       t,
@@ -141,11 +146,13 @@ export class UnconnectedReservationCalendarContainer extends Component {
         {showTimeSlots && (
           <TimeSlots
             addNotification={actions.addNotification}
+            durationSlotId={durationSlotId}
             isAdmin={isAdmin}
             isEditing={isEditing}
             isFetching={isFetchingResource}
             isLoggedIn={isLoggedIn}
             isStaff={isStaff}
+            onClear={actions.clearTimeSlots}
             onClick={actions.toggleTimeSlot}
             resource={resource}
             selected={selected}
@@ -156,12 +163,21 @@ export class UnconnectedReservationCalendarContainer extends Component {
         )}
         {showTimeSlots && selected.length > 0 && (
           <Row className="reservation-calendar-reserve-info">
+            <SkuChooser
+              durationSlotId={durationSlotId}
+              resourceId={resource.id}
+              selectSku={actions.selectSku}
+            />
             <Col xs={8}>
               <b>{t('TimeSlots.selectedDate')} </b>
               {this.getSelectedTimeText(selected)}
             </Col>
             <Col xs={4}>
-              <Button bsStyle="primary" onClick={this.handleReserveClick}>
+              <Button
+                bsStyle="primary"
+                className="reservation-calendar__reserve-button"
+                onClick={this.handleReserveClick}
+              >
                 {t('TimeSlots.reserveButton')}
               </Button>
             </Col>
@@ -194,9 +210,11 @@ function mapDispatchToProps(dispatch) {
   const actionCreators = {
     addNotification,
     cancelReservationEdit,
+    clearTimeSlots,
     changeRecurringBaseTime: recurringReservations.changeBaseTime,
     openConfirmReservationModal,
     selectReservationSlot,
+    selectSku,
     toggleTimeSlot,
   };
 

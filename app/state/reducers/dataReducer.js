@@ -62,6 +62,11 @@ function dataReducer(state = initialState, action) {
       return handleData(state, { resources });
     }
 
+    case types.API.ORDER_POST_SUCCESS: {
+      window.open(action.payload.redirectUrl, '_self');
+      return state;
+    }
+
     case types.API.RESERVATION_POST_SUCCESS:
     case types.API.RESERVATION_PUT_SUCCESS: {
       reservation = action.payload;

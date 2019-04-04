@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 
+import { postOrder, fetchOrder } from 'actions/paymentActions';
 import { postReservation, putReservation } from 'actions/reservationActions';
 import { fetchResource } from 'actions/resourceActions';
 import {
@@ -20,6 +21,7 @@ import ReservationInformation from './reservation-information/ReservationInforma
 import ReservationPhases from './reservation-phases/ReservationPhases';
 import ReservationTime from './reservation-time/ReservationTime';
 import reservationPageSelector from './reservationPageSelector';
+import ReservationPayment from './reservation-payment/ReservationPayment';
 
 class UnconnectedReservationPage extends Component {
   constructor(props) {
@@ -42,9 +44,13 @@ class UnconnectedReservationPage extends Component {
     if (isEmpty(reservationCreated) && isEmpty(reservationEdited) &&
       isEmpty(reservationToEdit) && isEmpty(selected)) {
       if (location.query && !location.query.id && location.query.resource) {
-        browserHistory.replace(`/resources/${location.query.resource}`);
-      } else {
-        browserHistory.replace('/my-reservations');
+        browserHistory.replace(`/varaamo/resources/${location.query.resource}`);
+      } else if (!location.query.reservation) {
+        browserHistory.replace('/varaamo/my-reservations');
+      } else if (location.query.reservation) {
+        this.fetchResource(location.query.resource);
+        this.fetchOrder(location.query.id);
+        window.scrollTo(0, 0);
       }
     } else {
       this.fetchResource();
@@ -56,13 +62,21 @@ class UnconnectedReservationPage extends Component {
     const {
       reservationCreated: nextCreated,
       reservationEdited: nextEdited,
+      location,
+      resource,
     } = nextProps;
     const {
       reservationCreated,
       reservationEdited,
     } = this.props;
+    const isPaid = location.query.code;
     if ((!isEmpty(nextCreated) || !isEmpty(nextEdited)) &&
       (nextCreated !== reservationCreated || nextEdited !== reservationEdited)) {
+      this.setState({
+        view: resource.usePayments && !isPaid ? 'payment' : 'confirmation',
+      });
+      window.scrollTo(0, 0);
+    } else if (resource.usePayments && isPaid && this.state.view !== 'confirmation') {
       this.setState({
         view: 'confirmation',
       });
@@ -75,13 +89,20 @@ class UnconnectedReservationPage extends Component {
     this.props.actions.closeReservationSuccessModal();
   }
 
-  fetchResource() {
+  fetchResource(resourceId) {
     const { actions, date, resource } = this.props;
     if (!isEmpty(resource)) {
       const start = moment(date).subtract(2, 'M').startOf('month').format();
       const end = moment(date).add(2, 'M').endOf('month').format();
       actions.fetchResource(resource.id, { start, end });
+    } else if (resourceId) {
+      actions.fetchResource(resourceId);
     }
+  }
+
+  fetchOrder = (reservationId) => {
+    const { actions } = this.props;
+    actions.fetchOrder(reservationId);
   }
 
   handleBack = () => {
@@ -94,9 +115,9 @@ class UnconnectedReservationPage extends Component {
   handleCancel = () => {
     const { reservationToEdit, resource } = this.props;
     if (!isEmpty(reservationToEdit)) {
-      browserHistory.replace('/my-reservations');
+      browserHistory.replace('/varaamo/my-reservations');
     } else {
-      browserHistory.replace(`/resources/${resource.id}`);
+      browserHistory.replace(`/varaamo/resources/${resource.id}`);
     }
   }
 
@@ -105,8 +126,22 @@ class UnconnectedReservationPage extends Component {
     window.scrollTo(0, 0);
   }
 
+  handleOrder = () => {
+    const {
+      actions,
+      skuId,
+      location,
+      reservationCreated: nextCreated,
+    } = this.props;
+    actions.postOrder({ ...nextCreated,
+      reservation_id: nextCreated.id,
+      sku_id: skuId,
+      success_url: location.pathname + location.search,
+    });
+  }
+
   handleReservation = (values = {}) => {
-    const { actions, reservationToEdit, resource, selected } = this.props;
+    const { actions, reservationToEdit, resource, selected, durationSlotId } = this.props;
     if (!isEmpty(selected)) {
       const { begin } = first(selected);
       const { end } = last(selected);
@@ -116,12 +151,14 @@ class UnconnectedReservationPage extends Component {
         actions.putReservation({
           ...reservation,
           ...values,
+          durationSlot: durationSlotId,
           begin,
           end,
         });
       } else {
         actions.postReservation({
           ...values,
+          durationSlot: durationSlotId,
           begin,
           end,
           resource: resource.id,
@@ -172,6 +209,7 @@ class UnconnectedReservationPage extends Component {
                 <ReservationPhases
                   currentPhase={view}
                   isEditing={isEditing || isEdited}
+                  usePayments={resource.usePayments}
                 />
                 {view === 'time' && isEditing &&
                   <ReservationTime
@@ -200,6 +238,9 @@ class UnconnectedReservationPage extends Component {
                     unit={unit}
                   />
                 }
+                {view === 'payment' && (reservationCreated || reservationEdited) &&
+                  <ReservationPayment handleOrder={this.handleOrder} />
+                }
                 {view === 'confirmation' && (reservationCreated || reservationEdited) &&
                   <ReservationConfirmation
                     isEdited={isEdited}
@@ -220,6 +261,8 @@ class UnconnectedReservationPage extends Component {
 UnconnectedReservationPage.propTypes = {
   actions: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
+  durationSlotId: PropTypes.number,
+  skuId: PropTypes.number,
   isAdmin: PropTypes.bool.isRequired,
   isStaff: PropTypes.bool.isRequired,
   isFetchingResource: PropTypes.bool.isRequired,
@@ -243,8 +286,10 @@ function mapDispatchToProps(dispatch) {
     closeReservationSuccessModal,
     fetchResource,
     openResourceTermsModal,
+    fetchOrder,
     putReservation,
     postReservation,
+    postOrder,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

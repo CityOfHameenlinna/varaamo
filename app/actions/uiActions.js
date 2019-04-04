@@ -37,10 +37,7 @@ const closeReservationSuccessModal = createAction(
   () => ModalTypes.RESERVATION_SUCCESS
 );
 
-const closeResourceTermsModal = createAction(
-  types.UI.CLOSE_MODAL,
-  () => ModalTypes.RESOURCE_TERMS
-);
+const closeResourceTermsModal = createAction(types.UI.CLOSE_MODAL, () => ModalTypes.RESOURCE_TERMS);
 
 const disableGeoposition = createAction(types.UI.DISABLE_GEOPOSITION);
 const disableTimeRange = createAction(types.UI.DISABLE_TIME_RANGE);
@@ -55,13 +52,13 @@ const enableGeoposition = () => (dispatch) => {
   }
   navigator.geolocation.getCurrentPosition(
     position => dispatch(enableGeopositionSuccess(position)),
-    error => dispatch(enableGeopositionError(error)),
+    error => dispatch(enableGeopositionError(error))
   );
 };
 
 const enableTimeRange = createAction(types.UI.ENABLE_TIME_RANGE);
 
-const filterAdminResourceType = createAction(types.UI.FILTER_ADMIN_RESOURCE_TYPE);
+const selectAdminResourceType = createAction(types.UI.SELECT_ADMIN_RESOURCE_TYPE);
 
 const hideReservationInfoModal = createAction(types.UI.HIDE_RESERVATION_INFO_MODAL);
 
@@ -80,26 +77,15 @@ const openReservationCommentModal = createAction(
   () => ModalTypes.RESERVATION_COMMENT
 );
 
-const selectReservationSlot = createAction(
-  types.UI.SELECT_RESERVATION_SLOT,
-);
+const selectReservationSlot = createAction(types.UI.SELECT_RESERVATION_SLOT);
 
-const selectReservationToCancel = createAction(
-  types.UI.SELECT_RESERVATION_TO_CANCEL
-);
+const selectReservationToCancel = createAction(types.UI.SELECT_RESERVATION_TO_CANCEL);
 
-const selectReservationToEdit = createAction(
-  types.UI.SELECT_RESERVATION_TO_EDIT
-);
+const selectReservationToEdit = createAction(types.UI.SELECT_RESERVATION_TO_EDIT);
 
-const selectReservationToShow = createAction(
-  types.UI.SELECT_RESERVATION_TO_SHOW
-);
+const selectReservationToShow = createAction(types.UI.SELECT_RESERVATION_TO_SHOW);
 
-const openResourceTermsModal = createAction(
-  types.UI.OPEN_MODAL,
-  () => ModalTypes.RESOURCE_TERMS
-);
+const openResourceTermsModal = createAction(types.UI.OPEN_MODAL, () => ModalTypes.RESOURCE_TERMS);
 
 const showReservationInfoModal = createAction(types.UI.SHOW_RESERVATION_INFO_MODAL);
 
@@ -107,13 +93,22 @@ const startReservationEditInInfoModal = createAction(types.UI.START_RESERVATION_
 
 const toggleTimeSlot = createAction(types.UI.TOGGLE_TIME_SLOT);
 
+const clearTimeSlots = createAction(types.UI.CLEAR_TIME_SLOTS);
+
 const toggleResourceMap = createAction(types.UI.TOGGLE_RESOURCE_SHOW_MAP);
 
-const unfilterAdminResourceType = createAction(types.UI.UNFILTER_ADMIN_RESOURCE_TYPE);
+const unselectAdminResourceType = createAction(types.UI.UNSELECT_ADMIN_RESOURCE_TYPE);
+
+const selectTimeRange = createAction(types.UI.SELECT_TIME_RANGE);
+
+const selectDurationSlot = createAction(types.UI.SELECT_DURATION_SLOT);
+
+const selectSku = createAction(types.UI.SELECT_SKU);
 
 export {
   cancelReservationEdit,
   cancelReservationEditInInfoModal,
+  clearTimeSlots,
   changeAdminReservationFilters,
   changeAdminResourcesPageDate,
   changeSearchFilters,
@@ -127,19 +122,22 @@ export {
   disableTimeRange,
   enableGeoposition,
   enableTimeRange,
-  filterAdminResourceType,
+  selectAdminResourceType,
   hideReservationInfoModal,
   openConfirmReservationModal,
   openReservationCancelModal,
   openReservationCommentModal,
   openResourceTermsModal,
+  selectDurationSlot,
   selectReservationToCancel,
   selectReservationToEdit,
   selectReservationSlot,
   selectReservationToShow,
+  selectSku,
+  selectTimeRange,
   showReservationInfoModal,
   startReservationEditInInfoModal,
   toggleResourceMap,
   toggleTimeSlot,
-  unfilterAdminResourceType,
+  unselectAdminResourceType,
 };

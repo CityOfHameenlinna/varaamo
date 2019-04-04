@@ -26,6 +26,7 @@ function fetchUnits() {
       endpoint: buildAPIUrl('unit', fetchParams),
       method: 'GET',
       headers: getHeadersCreator(),
+      credentials: 'same-origin',
       bailout: state => !state.api.shouldFetch.units,
     },
   };

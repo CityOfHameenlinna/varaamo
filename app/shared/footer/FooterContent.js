@@ -50,6 +50,23 @@ function FooterContent({ t }) {
       );
     }
 
+    case 'HAMEENLINNA': {
+      return (
+        <Grid>
+          <Row>
+            <Col lg={3} md={3}>
+              <Link className="brand-link" to="/">
+                <Logo />
+              </Link>
+            </Col>
+            <Col lg={6} md={6}>
+              <p><FormattedHTMLMessage id="Footer.hameenlinnaText" /></p>
+            </Col>
+          </Row>
+        </Grid>
+      );
+    }
+
     default: {
       return (
         <Grid>

@@ -19,22 +19,22 @@ import ResourceAvailability from './ResourceAvailability';
 class ResourceCard extends Component {
   handleSearchByType = () => {
     const filters = { search: this.props.resource.type.name };
-    browserHistory.push(`/search?${queryString.stringify(filters)}`);
+    browserHistory.push(`/varaamo/search?${queryString.stringify(filters)}`);
   };
 
   handleSearchByDistance = () => {
     const filters = { distance: this.props.resource.distance };
-    browserHistory.push(`/search?${queryString.stringify(filters)}`);
+    browserHistory.push(`/varaamo/search?${queryString.stringify(filters)}`);
   };
 
   handleSearchByPeopleCapacity = () => {
     const filters = { people: this.props.resource.peopleCapacity };
-    browserHistory.push(`/search?${queryString.stringify(filters)}`);
+    browserHistory.push(`/varaamo/search?${queryString.stringify(filters)}`);
   };
 
   handleSearchByUnit = () => {
     const filters = { unit: this.props.unit.id };
-    browserHistory.push(`/search?${queryString.stringify(filters)}`);
+    browserHistory.push(`/varaamo/search?${queryString.stringify(filters)}`);
   };
 
   handleLinkClick = () => {
@@ -82,7 +82,9 @@ class ResourceCard extends Component {
             >
               <span>{unit.name}</span>
             </a>
-            <ResourceAvailability date={date} resource={resource} />
+            {
+              resource.reservationLengthType === 'within_day' && <ResourceAvailability date={date} resource={resource} />
+            }
           </div>
           <Link onClick={this.handleLinkClick} to={linkTo}>
             <h4>{resource.name}</h4>

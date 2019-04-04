@@ -1,4 +1,10 @@
 .reservation-date {
+  &__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
   &__content {
     background-color: $white;
     border: 1px solid $brand-primary;

@@ -10,6 +10,7 @@ import Immutable from 'seamless-immutable';
 import 'assets/styles/main.scss';
 import 'assets/styles/customization/espoo/customization.scss';
 import 'assets/styles/customization/vantaa/customization.scss';
+import 'assets/styles/customization/hameenlinna/customization.scss';
 import { initI18n } from 'i18n';
 import configureStore from 'store/configureStore';
 import rootReducer from 'state/rootReducer';

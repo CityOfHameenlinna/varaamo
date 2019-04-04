@@ -38,7 +38,7 @@ class MainNavbar extends React.Component {
         <Navbar.Header>
           <Navbar.Toggle />
           <Navbar.Brand>
-            <Link to="/">
+            <Link to="/varaamo/">
               Varaamo
             </Link>
           </Navbar.Brand>
@@ -57,20 +57,20 @@ class MainNavbar extends React.Component {
               </NavItem>
             </LinkContainer>
             {isLoggedIn && (
-              <LinkContainer to="/admin-resources">
+              <LinkContainer to="/varaamo/admin-resources">
                 <NavItem eventKey="admin-resources" onClick={() => this.collapseItem()}>
                   { isAdmin ? t('Navbar.adminResources') : t('Navbar.userFavorites') }
                 </NavItem>
               </LinkContainer>
             )}
             {isLoggedIn && (
-              <LinkContainer to="/my-reservations">
+              <LinkContainer to="/varaamo/my-reservations">
                 <NavItem eventKey="my-reservations" onClick={() => this.collapseItem()}>
                   {t('Navbar.userResources')}
                 </NavItem>
               </LinkContainer>
             )}
-            <LinkContainer to="/about">
+            <LinkContainer to="/varaamo/about">
               <NavItem eventKey="about" onClick={() => this.collapseItem()}>
                 {t('Navbar.aboutLink')}
               </NavItem>

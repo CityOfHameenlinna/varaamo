@@ -5,6 +5,8 @@ export default {
     'varaamotest-espoo.hel.ninja': 'ESPOO',
     'varaamo.vantaa.fi': 'VANTAA',
     'varaamotest-vantaa.hel.ninja': 'VANTAA',
+    'varaukset.hameenlinna.fi': 'HAMEENLINNA',
+    'varaukset.haltudemo.fi': 'HAMEENLINNA',
   },
   DATE_FORMAT: 'YYYY-MM-DD',
   DEFAULT_LOCALE: 'fi',
@@ -25,10 +27,7 @@ export default {
     'Accept-Language': 'fi',
     'Content-Type': 'application/json',
   },
-  REQUIRED_STAFF_EVENT_FIELDS: [
-    'eventDescription',
-    'reserverName',
-  ],
+  REQUIRED_STAFF_EVENT_FIELDS: ['eventDescription', 'reserverName'],
   RESERVATION_STATE_LABELS: {
     cancelled: {
       labelBsStyle: 'default',
@@ -64,6 +63,7 @@ export default {
     search: '',
     start: '',
     unit: '',
+    useTimeRange: false,
   },
   TIME_FORMAT: 'H:mm',
   TRACKING: SETTINGS.TRACKING,
