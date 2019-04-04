@@ -60,7 +60,7 @@ function FooterContent({ t }) {
               </Link>
             </Col>
             <Col lg={6} md={6}>
-              <p><FormattedHTMLMessage id="Footer.hameenlinnaText" /></p><p> {feedbackLink}</p>
+              <p><FormattedHTMLMessage id="Footer.hameenlinnaText" /></p>
             </Col>
           </Row>
         </Grid>

@@ -1,4 +1,9 @@
+import { getCurrentCustomization } from 'utils/customizationUtils';
+
 function getServiceMapUrl(unit) {
+  if (getCurrentCustomization() === 'HAMEENLINNA') {
+    return '';
+  }
   if (!unit || !unit.id) {
     return '';
   }
