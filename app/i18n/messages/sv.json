@@ -165,7 +165,7 @@
   "ReservationCancelModal.cancelNotAllowedTitle": "Avbokning av bokning",
   "ReservationCancelModal.lead": "Är du säker på att du vill avboka följande bokning:",
   "ReservationCancelModal.takeIntoAccount": "Märk väl att bokningen ska avbokas minst <strong>5 dagar</strong> före datumet för bokningen. Oanvända bokningar faktureras.",
-  "ReservationConfirmation.feedbackText": "Tack för att du använde Varaamo! <a href='{href}'>Sänd feedback.",
+  "ReservationConfirmation.feedbackText": "Tack för att du använde Varaamo!",
   "ReservationConfirmation.reservationCreatedTitle": "Bokningen sparad",
   "ReservationConfirmation.reservationEditedTitle": "Bokningen uppdaterad",
   "ReservationConfirmation.resourceButton": "Tillbaka till sökresultat",

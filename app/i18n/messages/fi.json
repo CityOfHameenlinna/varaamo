@@ -163,7 +163,7 @@
   "ReservationCancelModal.cancelNotAllowedTitle": "Varauksen peruminen",
   "ReservationCancelModal.lead": "Oletko varma että haluat perua seuraavan varauksen:",
   "ReservationCancelModal.takeIntoAccount": "Huomioi kuitenkin, että varaus pitää perua viimeistään <strong>5 päivää</strong> ennen varauksen alkamista. Käyttämättömät varaukset laskutetaan.",
-  "ReservationConfirmation.feedbackText": "Kiitokset Varaamon käytöstä! <a href='{href}'>Lähetä palvelusta palautetta</a>.",
+  "ReservationConfirmation.feedbackText": "Kiitokset Varaamon käytöstä!",
   "ReservationConfirmation.reservationCreatedTitle": "Varaus suoritettu onnistuneesti",
   "ReservationConfirmation.reservationEditedTitle": "Varaus päivitetty",
   "ReservationConfirmation.resourceButton": "Palaa tilan tietoihin",
