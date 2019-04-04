@@ -39,7 +39,8 @@ class ReservationTimeControls extends Component {
     super(props);
     this.handleBeginTimeChange = this.handleBeginTimeChange.bind(this);
     this.handleEndTimeChange = this.handleEndTimeChange.bind(this);
-    this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleBeginDateChange = this.handleBeginDateChange.bind(this);
+    this.handleEndDateChange = this.handleEndDateChange.bind(this);
   }
 
   getTimeOptions() {
@@ -76,9 +77,13 @@ class ReservationTimeControls extends Component {
     }
   }
 
-  handleDateChange(date) {
-    const { begin, end } = this.props;
+  handleBeginDateChange(date) {
+    const { begin } = this.props;
     begin.input.onChange(updateWithDate(begin.input.value, date));
+  }
+
+  handleEndDateChange(date) {
+    const { end } = this.props;
     end.input.onChange(updateWithDate(end.input.value, date));
   }
 
@@ -89,8 +94,12 @@ class ReservationTimeControls extends Component {
       <div className="reservation-time-controls">
         <div className="reservation-time-controls-date-control">
           <DatePicker
-            onChange={this.handleDateChange}
+            onChange={this.handleBeginDateChange}
             value={begin.input.value}
+          />
+          <DatePicker
+            onChange={this.handleEndDateChange}
+            value={end.input.value}
           />
         </div>
         <div className="reservation-time-controls-time-control">
