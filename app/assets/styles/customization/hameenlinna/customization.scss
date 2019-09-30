@@ -51,6 +51,9 @@
 
   .app-MainNavbar {
     background-color: $blue;
+    .navbar-collapse ul li a {
+      font-size: 16px;
+    }
   }
 
   .app-SideNavbar .app-Sidebar__sidebar {
@@ -135,7 +138,7 @@
   }
   .app-HomePage::before {
     content: "";
-    background-image: url("https://varaukset.haltudemo.fi/varaamo/_assets/etusivu_tausta.jpg");
+    background-image: url("./images/etusivu_tausta.jpg");
     background-position: center;
     background-size: cover;
     position: absolute;
