@@ -35,7 +35,7 @@
     background-color: lighten($blue, 5);
     border-color: lighten($blue, 5);
   }
-  
+
   div {
     font-family: $font-family;
   }
@@ -78,7 +78,7 @@
         }
       }
     }
-  
+
   }
 
   .app-SideNavbar__toggle {
@@ -96,12 +96,12 @@
   footer {
     background-color: $blue;
     text-align: left;
-    
+
     a {
       color: $white;
       font-family: $font-family;
       font-weight: bold;
-  
+
       &:hover {
         color: $white;
       }
@@ -140,10 +140,22 @@
     padding-top: 50px;
   }
 
+  .app-HomePageContent__banners .row {
+    width: 100%;
+  }
+
   .app-HomePage .app-HomePageContent__banner {
+    height: 350px;
+
     div {
       background-color: $orange;
       color: $blue;
+      cursor: pointer;
+    }
+    img {
+      max-width: 75%;
+      max-height: 50%;
+      margin: 10px 0;
     }
   }
 
