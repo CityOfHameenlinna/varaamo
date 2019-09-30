@@ -43,12 +43,10 @@
   // Navbar
   // ------
 
-  .navbar-brand {
-    padding: 15px 15px;
-  }
   .brand-logo {
     background-image: url('../../../../shared/logo/hameenlinna-city-logo.png');
     width: 172px;
+    margin-top: -4px;
   }
 
   .app-MainNavbar {
@@ -117,6 +115,10 @@
 
     .brand-link, .brand-link:hover {
       color: #fff;
+    }
+
+    p.footer-message {
+      margin-top: 14px;
     }
 
     .about-link {
