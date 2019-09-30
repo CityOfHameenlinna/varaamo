@@ -131,7 +131,22 @@
   // ----------
 
   .app-HomePage {
-    background-image: url("./images/etusivu_tausta.jpg");
+    background-image: none;
+  }
+  .app-HomePage::before {
+    content: "";
+    background-image: url("https://varaukset.haltudemo.fi/varaamo/_assets/etusivu_tausta.jpg");
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 800px;
+  }
+
+  .app-HomePage__content.container {
+    position: relative;
   }
 
   .app-HomePage__koro {
