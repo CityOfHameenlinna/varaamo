@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
+import Row from 'react-bootstrap/lib/Row';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -57,7 +58,7 @@ class UnconnectedHomePage extends Component {
     const { t } = this.props;
     const image = purposeIcons[camelCase(purpose.value)];
     return (
-      <Col className="app-HomePageContent__banner" key={purpose.value} md={4} sm={4} xs={4}>
+      <Col className="app-HomePageContent__banner" key={purpose.value} md={4} onClick={() => this.handleBannerClick(purpose.value)} sm={4} xs={12}>
         <div>
           <img alt={purpose.label} src={image} />
           <h5>{purpose.label}</h5>
@@ -65,7 +66,7 @@ class UnconnectedHomePage extends Component {
             <Button
               bsStyle="primary"
               className="app-HomePageContent__button"
-              onClick={() => this.handleBannerClick(purpose.value)}
+
               type="submit"
             >
               {t('HomePage.buttonText')}
@@ -91,7 +92,9 @@ class UnconnectedHomePage extends Component {
           <h4>{t('HomePage.bannersTitle')}</h4>
           <Loader loaded={!isFetchingPurposes}>
             <div className="app-HomePageContent__banners">
-              {purposes.map(this.renderPurposeBanner)}
+              <Row>
+                {purposes.map(this.renderPurposeBanner)}
+              </Row>
             </div>
           </Loader>
         </PageWrapper>

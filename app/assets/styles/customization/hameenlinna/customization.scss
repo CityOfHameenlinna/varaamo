@@ -35,7 +35,7 @@
     background-color: lighten($blue, 5);
     border-color: lighten($blue, 5);
   }
-  
+
   div {
     font-family: $font-family;
   }
@@ -43,16 +43,17 @@
   // Navbar
   // ------
 
-  .navbar-brand {
-    padding: 15px 15px;
-  }
   .brand-logo {
     background-image: url('../../../../shared/logo/hameenlinna-city-logo.png');
     width: 172px;
+    margin-top: -4px;
   }
 
   .app-MainNavbar {
     background-color: $blue;
+    .navbar-collapse ul li a {
+      font-size: 16px;
+    }
   }
 
   .app-SideNavbar .app-Sidebar__sidebar {
@@ -78,7 +79,7 @@
         }
       }
     }
-  
+
   }
 
   .app-SideNavbar__toggle {
@@ -96,12 +97,12 @@
   footer {
     background-color: $blue;
     text-align: left;
-    
+
     a {
       color: $white;
       font-family: $font-family;
       font-weight: bold;
-  
+
       &:hover {
         color: $white;
       }
@@ -119,6 +120,10 @@
       color: #fff;
     }
 
+    p.footer-message {
+      margin-top: 14px;
+    }
+
     .about-link {
       color: #fff;
     }
@@ -129,7 +134,22 @@
   // ----------
 
   .app-HomePage {
+    background-image: none;
+  }
+  .app-HomePage::before {
+    content: "";
     background-image: url("./images/etusivu_tausta.jpg");
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 800px;
+  }
+
+  .app-HomePage__content.container {
+    position: relative;
   }
 
   .app-HomePage__koro {
@@ -140,10 +160,22 @@
     padding-top: 50px;
   }
 
+  .app-HomePageContent__banners .row {
+    width: 100%;
+  }
+
   .app-HomePage .app-HomePageContent__banner {
+    height: 350px;
+
     div {
       background-color: $orange;
       color: $blue;
+      cursor: pointer;
+    }
+    img {
+      max-width: 75%;
+      max-height: 50%;
+      margin: 10px 0;
     }
   }
 
