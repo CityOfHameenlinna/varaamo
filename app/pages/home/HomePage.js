@@ -10,6 +10,7 @@ import camelCase from 'lodash/camelCase';
 
 import { fetchPurposes } from 'actions/purposeActions';
 import { injectT } from 'i18n';
+import { getCurrentCustomization } from 'utils/customizationUtils';
 import PageWrapper from 'pages/PageWrapper';
 import HomeSearchBox from './HomeSearchBox';
 import homePageSelector from './homePageSelector';
@@ -79,11 +80,16 @@ class UnconnectedHomePage extends Component {
 
   render() {
     const { isFetchingPurposes, purposes, t } = this.props;
+    const customization = getCurrentCustomization();
     return (
       <div className="app-HomePage">
         <div className="app-HomePage__content container">
           <h1>Varaamo –</h1>
-          <h1>{t('HomePage.contentTitle')}</h1>
+          {customization === 'HAMEENLINNA' ? (
+            <h1>{t('HomePage.hameenlinnaContentTitle')}</h1>
+          ) :
+            <h1>{t('HomePage.contentTitle')}</h1>
+          }
           <h5>{t('HomePage.contentSubTitle')}</h5>
           <HomeSearchBox onSearch={this.handleSearch} />
         </div>

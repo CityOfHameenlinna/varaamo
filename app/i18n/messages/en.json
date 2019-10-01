@@ -90,6 +90,7 @@
   "Footer.hameenlinnaText": "Varaamo is the City of Hämeenlinna’s reservation booking system.</p>",
   "HomePage.title": "Welcome",
   "HomePage.contentTitle": "Premises and equipment available for booking",
+  "HomePage.hameenlinnaContentTitle": "Premises of City of Hämeenlinna available for booking",
   "HomePage.contentSubTitle": "Through Varaamo, you can reserve public premises and equipment for your own use",
   "HomePage.bannersTitle": "Available resources",
   "HomePage.buttonText": "Search",
