@@ -182,6 +182,7 @@
   "ReservationEditForm.startEdit": "Edit reservation",
   "ReservationForm.cancel": "Back",
   "ReservationForm.emailError": "Enter a valid e-mail address",
+  "ReservationForm.phoneNumberError": "Enter a valid phone number without spaces",
   "ReservationForm.eventSubjectInfo": "Event name is visible to staff only. Giving a name to the event makes it easier to guide the guests to the right space. Please remember to also tell the name to people arriving to the event.",
   "ReservationForm.maxLengthError": "The maximum length of the field is {maxLength} characters",
   "ReservationForm.requiredError": "Mandatory information",

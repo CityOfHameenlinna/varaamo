@@ -45,6 +45,8 @@ export class UnconnectedReservationLongCalendar extends Component {
 
   getDisabledDays = () => {
     const { availability, resource } = this.props;
+    if (!resource.reservable) return [{ after: moment() }];
+
     const disabledDays = [];
 
     Object.keys(availability).forEach((key) => {

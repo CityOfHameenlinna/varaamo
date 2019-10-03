@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/lib/Form';
 import Well from 'react-bootstrap/lib/Well';
 import { Field, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
+import isMobilePhone from 'validator/lib/isMobilePhone';
 
 import constants from 'constants/AppConstants';
 import FormTypes from 'constants/FormTypes';
@@ -13,7 +14,21 @@ import TermsField from 'shared/form-fields/TermsField';
 import { injectT } from 'i18n';
 import ReservationTermsModal from 'shared/modals/reservation-terms';
 
+const paytrailValidators = {
+  reserverPhoneNumber: (t, { reserverPhoneNumber = '' }) => {
+    // Paytrail doesn't allow spaces in phone numbers
+    if (
+      !reserverPhoneNumber.match(/^\S*$/) ||
+      !isMobilePhone(reserverPhoneNumber, ['fi-FI'])
+    ) {
+      return t('ReservationForm.phoneNumberError');
+    }
+    return null;
+  },
+};
+
 const validators = {
+  ...paytrailValidators,
   reserverEmailAddress: (t, { reserverEmailAddress }) => {
     if (reserverEmailAddress && !isEmail(reserverEmailAddress)) {
       return t('ReservationForm.emailError');
