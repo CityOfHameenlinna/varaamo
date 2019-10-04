@@ -81,6 +81,12 @@ export class UnconnectedReservationLongCalendar extends Component {
       after: moment(previousEnd).add(1, 'days'),
     });
 
+    let today = moment();
+    Array(resource.reservableMinDaysInAdvance).fill().forEach(() => {
+      disabledDays.push(today.toDate());
+      today = today.add(1, 'days');
+    });
+
     return disabledDays;
   }
 

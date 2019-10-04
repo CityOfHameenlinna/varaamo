@@ -1,11 +1,9 @@
 import React, { PropTypes } from 'react';
-import Button from 'react-bootstrap/lib/Button';
 import Grid from 'react-bootstrap/lib/Grid';
 import iconMapMarker from 'hel-icons/dist/shapes/map-marker.svg';
 import { upperFirst } from 'lodash';
 
 import { injectT } from 'i18n';
-import { getServiceMapUrl } from 'utils/unitUtils';
 
 function formatAddress({ addressZip, municipality, streetAddress }) {
   const parts = [streetAddress, `${addressZip} ${upperFirst(municipality)}`.trim()];
@@ -24,9 +22,6 @@ function ResourceMapInfo({ unit, t }) {
               src={iconMapMarker}
             />
             <span>{formatAddress(unit)}</span>
-            <Button bsStyle="link" href={getServiceMapUrl(unit)}>
-              {t('ResourceInfo.serviceMapLink')}
-            </Button>
           </div>
         )}
       </Grid>
