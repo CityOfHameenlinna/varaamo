@@ -15,9 +15,14 @@ class SkuChooser extends Component {
   render() {
     const { t, resource, durationSlotId, skuId } = this.props;
     const skus = resource.durationSlots.find(durSlot => durationSlotId === durSlot.id).skus;
-    const options = skus.map(sku => ({ value: sku.id, label: `${sku.name} ${sku.price.toLocaleString('fi-FI')} €` }));
-
-    const selectValue = skuId || 'not_chosen';
+    let options = [];
+    if (skus.length !== 0) {
+      options = skus.map(sku => ({ value: sku.id, label: `${sku.name} ${sku.price.toLocaleString('fi-FI')} €` }));
+    } else {
+      options = [{ value: 'not_chosen', label: t('SkuChooser.chooseReservationLength') }];
+    }
+    const defaultSku = options[0].value;
+    const selectValue = skuId || defaultSku;
 
     return (
       <div className="app-SkuChooser">
@@ -25,7 +30,7 @@ class SkuChooser extends Component {
           clearable={false}
           name="duration-slot-chooser"
           onChange={this.onChange}
-          options={[...options, { value: 'not_chosen', label: t('SkuChooser.chooseReservationLength') }]}
+          options={options}
           placeholder=""
           searchable={false}
           value={selectValue}

@@ -181,6 +181,7 @@
   "ReservationEditForm.startEdit": "Muokkaa tapahtumaa",
   "ReservationForm.cancel": "Takaisin",
   "ReservationForm.emailError": "Syötä kunnollinen sähköpostiosoite",
+  "ReservationForm.phoneNumberError": "Syötä kunnollinen puhelinnumero ilman välilyöntejä",
   "ReservationForm.eventSubjectInfo": "Tilaisuuden nimen näkee ainoastaan henkilökunta. Antamalla tilaisuudelle nimen helpotat saapuvien vieraiden opastamista oikeaan tilaan. Muistathan ilmoittaa nimen myös tilaisuuteen saapuville.",
   "ReservationForm.maxLengthError": "Kentän maksimipituus on {maxLength} merkkiä",
   "ReservationForm.requiredError": "Pakollinen tieto",
