@@ -15,6 +15,7 @@ class SkuChooser extends Component {
   render() {
     const { t, resource, durationSlotId, skuId } = this.props;
     const skus = resource.durationSlots.find(durSlot => durationSlotId === durSlot.id).skus;
+    const { selectSku } = this.props;
     let options = [];
     if (skus.length !== 0) {
       options = skus.map(sku => ({ value: sku.id, label: `${sku.name} ${sku.price.toLocaleString('fi-FI')} €` }));
@@ -23,6 +24,7 @@ class SkuChooser extends Component {
     }
     const defaultSku = options[0].value;
     const selectValue = skuId || defaultSku;
+    selectSku(selectValue);  // set default selected sku
 
     return (
       <div className="app-SkuChooser">
