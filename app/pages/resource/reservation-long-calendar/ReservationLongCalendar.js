@@ -45,6 +45,8 @@ export class UnconnectedReservationLongCalendar extends Component {
 
   getDisabledDays = () => {
     const { availability, resource } = this.props;
+    if (!resource.reservable) return [{ after: moment() }];
+
     const disabledDays = [];
 
     Object.keys(availability).forEach((key) => {
@@ -77,6 +79,12 @@ export class UnconnectedReservationLongCalendar extends Component {
 
     disabledDays.push({
       after: moment(previousEnd).add(1, 'days'),
+    });
+
+    let today = moment();
+    Array(resource.reservableMinDaysInAdvance).fill().forEach(() => {
+      disabledDays.push(today.toDate());
+      today = today.add(1, 'days');
     });
 
     return disabledDays;

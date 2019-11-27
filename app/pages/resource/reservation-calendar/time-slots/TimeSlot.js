@@ -36,12 +36,17 @@ class TimeSlot extends PureComponent {
     }
   }
 
-  getReservationInfoNotification(isLoggedIn, resource, slot, t) {
-    if (new Date(slot.end) < new Date() || slot.reserved) {
+  getReservationInfoNotification(isLoggedIn, resource, slot, t, durationSlotId, allSelectedSlots) {
+    if (new Date(slot.end) < new Date() || slot.reserved || !!allSelectedSlots.length) {
       return null;
     }
-
-    if (!isLoggedIn && resource.reservable) {
+    if (!!resource.reservable && !!resource.durationSlots.length && !durationSlotId) {
+      return {
+        message: t('ReservationLongCalendar.chooseSlotFirst'),
+        type: 'info',
+        timeOut: 10000,
+      };
+    } else if (!!resource.reservable && !isLoggedIn) {
       return {
         message: t('Notifications.loginToReserve'),
         type: 'info',
@@ -106,7 +111,14 @@ class TimeSlot extends PureComponent {
     } = this.props;
 
     if (disabled) {
-      const notification = this.getReservationInfoNotification(isLoggedIn, resource, slot, t);
+      const notification = this.getReservationInfoNotification(
+        isLoggedIn,
+        resource,
+        slot,
+        t,
+        durationSlotId,
+        allSelectedSlots
+      );
       if (notification && notification.message) {
         addNotification(notification);
       }

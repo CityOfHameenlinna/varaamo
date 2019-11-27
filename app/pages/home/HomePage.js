@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
+import Row from 'react-bootstrap/lib/Row';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -9,6 +10,7 @@ import camelCase from 'lodash/camelCase';
 
 import { fetchPurposes } from 'actions/purposeActions';
 import { injectT } from 'i18n';
+import { getCurrentCustomization } from 'utils/customizationUtils';
 import PageWrapper from 'pages/PageWrapper';
 import HomeSearchBox from './HomeSearchBox';
 import homePageSelector from './homePageSelector';
@@ -57,7 +59,7 @@ class UnconnectedHomePage extends Component {
     const { t } = this.props;
     const image = purposeIcons[camelCase(purpose.value)];
     return (
-      <Col className="app-HomePageContent__banner" key={purpose.value} md={4} sm={4} xs={4}>
+      <Col className="app-HomePageContent__banner" key={purpose.value} md={4} onClick={() => this.handleBannerClick(purpose.value)} sm={4} xs={12}>
         <div>
           <img alt={purpose.label} src={image} />
           <h5>{purpose.label}</h5>
@@ -65,7 +67,7 @@ class UnconnectedHomePage extends Component {
             <Button
               bsStyle="primary"
               className="app-HomePageContent__button"
-              onClick={() => this.handleBannerClick(purpose.value)}
+
               type="submit"
             >
               {t('HomePage.buttonText')}
@@ -78,11 +80,16 @@ class UnconnectedHomePage extends Component {
 
   render() {
     const { isFetchingPurposes, purposes, t } = this.props;
+    const customization = getCurrentCustomization();
     return (
       <div className="app-HomePage">
         <div className="app-HomePage__content container">
           <h1>Varaamo –</h1>
-          <h1>{t('HomePage.contentTitle')}</h1>
+          {customization === 'HAMEENLINNA' ? (
+            <h1>{t('HomePage.hameenlinnaContentTitle')}</h1>
+          ) :
+            <h1>{t('HomePage.contentTitle')}</h1>
+          }
           <h5>{t('HomePage.contentSubTitle')}</h5>
           <HomeSearchBox onSearch={this.handleSearch} />
         </div>
@@ -91,7 +98,9 @@ class UnconnectedHomePage extends Component {
           <h4>{t('HomePage.bannersTitle')}</h4>
           <Loader loaded={!isFetchingPurposes}>
             <div className="app-HomePageContent__banners">
-              {purposes.map(this.renderPurposeBanner)}
+              <Row>
+                {purposes.map(this.renderPurposeBanner)}
+              </Row>
             </div>
           </Loader>
         </PageWrapper>
