@@ -210,6 +210,8 @@ export class UnconnectedReservationLongCalendar extends Component {
             selectedDays={[from, { from, to }]}
             showOutsideDays
             showWeekNumbers
+            // TODO
+            // onMonthChange={()=>this.props.actions.fetchReservations({ })} http://react-day-picker.js.org/api/DayPicker/#onMonthChange
           />
         </div>
         {
@@ -260,6 +262,7 @@ function mapDispatchToProps(dispatch) {
     toggleTimeSlot,
     selectTimeRange,
     selectSku,
+    fetchReservations,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
