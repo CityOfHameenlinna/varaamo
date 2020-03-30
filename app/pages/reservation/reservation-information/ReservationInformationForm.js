@@ -16,7 +16,7 @@ import ReservationTermsModal from 'shared/modals/reservation-terms';
 const paytrailValidators = {
   reserverPhoneNumber: (t, { reserverPhoneNumber = '' }) => {
     // Paytrail doesn't allow spaces in phone numbers
-    const isMobilePhone = /^\+?[\-0-9]*$/g.test(reserverPhoneNumber);
+    const isMobilePhone = /^\+?[\-0-9]+$/g.test(reserverPhoneNumber);
     if (
       !isMobilePhone
     ) {
