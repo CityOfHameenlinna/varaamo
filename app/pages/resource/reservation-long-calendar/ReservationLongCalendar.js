@@ -212,6 +212,11 @@ export class UnconnectedReservationLongCalendar extends Component {
             showOutsideDays
             showWeekNumbers
           />
+          <div className="calendar-legend">
+            <span className="free">{t('ReservationCalendarPickerLegend.free')}</span>
+            <span className="busy">{t('ReservationCalendarPickerLegend.busy')}</span>
+            <span className="booked">{t('ReservationCalendarPickerLegend.booked')}</span>
+          </div>
         </div>
         {
           from && to && (
