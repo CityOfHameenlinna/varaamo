@@ -207,11 +207,10 @@ export class UnconnectedReservationLongCalendar extends Component {
             modifiers={modifiers}
             numberOfMonths={2}
             onDayClick={this.handleDayClick}
+            onMonthChange={date => this.props.fetchResource(date)}
             selectedDays={[from, { from, to }]}
             showOutsideDays
             showWeekNumbers
-            // TODO
-            // onMonthChange={()=>this.props.actions.fetchReservations({ })} http://react-day-picker.js.org/api/DayPicker/#onMonthChange
           />
         </div>
         {
@@ -251,6 +250,7 @@ UnconnectedReservationLongCalendar.propTypes = {
   durationSlotId: PropTypes.number,
   resource: PropTypes.object.isRequired,
   selected: PropTypes.array.isRequired,
+  fetchResource: PropTypes.array.isRequired,
 };
 UnconnectedReservationLongCalendar = injectT(UnconnectedReservationLongCalendar) // eslint-disable-line
 
@@ -262,7 +262,6 @@ function mapDispatchToProps(dispatch) {
     toggleTimeSlot,
     selectTimeRange,
     selectSku,
-    fetchReservations,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

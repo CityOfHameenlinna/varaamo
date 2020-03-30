@@ -77,7 +77,6 @@ class UnconnectedResourcePage extends Component {
       .add(2, 'M')
       .endOf('month')
       .format();
-
     actions.fetchResource(id, { start, end });
   }
 
@@ -229,6 +228,7 @@ class UnconnectedResourcePage extends Component {
                           )
                         }
                         <ReservationLongCalendar
+                          fetchResource={this.fetchResource}
                           location={location}
                           params={params}
                           resourceId={resource.id}
