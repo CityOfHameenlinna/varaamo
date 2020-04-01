@@ -2,7 +2,7 @@ import constants from 'constants/AppConstants';
 
 function getCurrentCustomization() {
   const host = window.location.host;
-  return process.env.CUSTOMIZATION || constants.CUSTOMIZATIONS[host] || null;
+  return constants.CUSTOMIZATIONS[host] || null;
 }
 
 function getCustomizationClassName() {
