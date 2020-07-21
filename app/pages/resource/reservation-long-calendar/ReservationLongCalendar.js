@@ -207,10 +207,16 @@ export class UnconnectedReservationLongCalendar extends Component {
             modifiers={modifiers}
             numberOfMonths={2}
             onDayClick={this.handleDayClick}
+            onMonthChange={date => this.props.fetchResource(date)}
             selectedDays={[from, { from, to }]}
             showOutsideDays
             showWeekNumbers
           />
+          <div className="calendar-legend">
+            <span className="free">{t('ReservationCalendarPickerLegend.free')}</span>
+            <span className="busy">{t('ReservationCalendarPickerLegend.busy')}</span>
+            <span className="booked">{t('ReservationCalendarPickerLegend.booked')}</span>
+          </div>
         </div>
         {
           from && to && (
@@ -249,6 +255,7 @@ UnconnectedReservationLongCalendar.propTypes = {
   durationSlotId: PropTypes.number,
   resource: PropTypes.object.isRequired,
   selected: PropTypes.array.isRequired,
+  fetchResource: PropTypes.array.isRequired,
 };
 UnconnectedReservationLongCalendar = injectT(UnconnectedReservationLongCalendar) // eslint-disable-line
 
